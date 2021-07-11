@@ -23,15 +23,16 @@ searchButton.addEventListener('click', () => {
 ///usa para sus compras 
 
 if(JSON.parse(window.localStorage.getItem('usuarioActivo'))!==null) {
-    let carritosRegistrados = JSON.parse(window.localStorage.getItem('carritosRegistrados'));
+    let carritosRegistrados =JSON.parse(window.localStorage.getItem('carritosRegistrados'));
     let usuarioActivo = JSON.parse(window.localStorage.getItem('usuarioActivo'));
     let encontrar = carritosRegistrados.findIndex((element) => {
         return element.cliente === usuarioActivo.username;
     })
+    console.log(encontrar);
     console.log(usuarioActivo);
     let carritoActivo = carritosRegistrados[encontrar];
     window.localStorage.setItem('carritoActivo',JSON.stringify(carritoActivo));
-    ///console.log(JSON.parse(window.localStorage.getItem('carritoActivo',JSON.stringify(carritoActivo))));
+    ///console.log(JSON.parse(window.localStorage.getItem('carritoActivo')));
 }
 
 ///Si es la primera vez que se entra al sistema y no hay usuarios registrados, se genneran las listas necesarias para guardarlos más adelante
@@ -39,16 +40,16 @@ if (window.localStorage.getItem('usuariosEnSistema')===null) {
     window.localStorage.setItem('usuariosEnSistema',JSON.stringify([]));
     window.localStorage.setItem('carritosRegistrados',JSON.stringify([]));
 }else{
-    console.log(JSON.parse(window.localStorage.getItem('usuariosEnSistema')));
-    console.log(JSON.parse(window.localStorage.getItem('carritosRegistrados')));
+    ///console.log(JSON.parse(window.localStorage.getItem('usuariosEnSistema')));
+    ///console.log(JSON.parse(window.localStorage.getItem('carritosRegistrados')));
 }
 
 ///Si hay una sesion iniciada, el boton mi perfil lleva a la pagina perfil_mio.html con los datos del usuario y para que pueda modificarlos, si no entonces se le envia a login para que pueda entrar o registrarese
 document.getElementById('perfil_activo').addEventListener('click',()=>{
     if (JSON.parse(window.localStorage.getItem('usuarioActivo')) === null){
-        window.open('../html/login.html','_self');
+        window.open('./html/login.html','_self');
     }else {
-        window.open('../html/perfil_mio.html','_self');
+        window.open('./html/perfil_mio.html','_self');
     }
 })
 
@@ -68,7 +69,7 @@ document.getElementById('salirindex').addEventListener('click',()=> {
     if (JSON.parse(window.localStorage.getItem('usuarioActivo'))!==null){
         window.localStorage.removeItem('usuarioActivo');
         window.localStorage.removeItem('carritoActivo');
-        window.open('/html/login.html','_self');
+        window.open('./html/login.html','_self');
     }
 })
 

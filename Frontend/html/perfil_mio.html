@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
+    <title>Mi tiendita</title>
+    <link rel="icon" type="image/x-icon" href="../images/thumbs/shopping-cart-20392.png">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+  </head>
+  <body class="bg-light">
+    
+<div class="container">
+  <main>
+    <div class="py-5 text-center">
+      <img class="d-block mx-auto mb-4" src="../images/thumbs/shopping-cart-20392.png" alt="" width="72" height="57">
+      <h2 id="titulo_perfil">Mi perfil</h2>
+      <p class="lead" id="saludo_cliente">¡Siempre es un gusto que nos visites!</p>
+    </div>
+      <div class="col-md-7 col-lg-8">
+        <form class="needs-validation" novalidate>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">Primer nombre</label>
+              <p id="nombre1"></p>
+              
+            </div>
+
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">Segundo nombre<span class="text-muted">(Optional)</span></label>
+              <p id="nombre2"></p>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">Apellido paterno</label>
+              <p id="apellido1"></p>
+              
+            </div>
+
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">Apellido materno</label>
+              <p id="apellido2"></p>
+              
+            </div>
+
+            <div class="col-12">
+              <label for="username" class="form-label">Usuario</label>
+              <div class="input-group has-validation">
+                <p id="username"></p>
+              
+              </div>
+            </div>
+            <div class="col-12">
+              <label for="address" class="form-label">Dirección propia</label>
+              <p id="direccion"></p>
+              
+            </div>
+
+            <div class="col-12">
+              <label for="address2" class="form-label">Dirección de envío </label>
+              <p id="envios"></p>
+              
+            </div>
+
+            <div class="col-md-5">
+              <label for="country" class="form-label">País</label>
+                <p id="country"></p>
+              
+            </div>
+          </div>
+
+ 
+          <h4 class="mb-3">Opciones de pago</h4>
+
+          <div class="my-3">
+            <div class="col-md-5">
+              <p id="OpcionPago"></p>
+            </div>
+          </div>
+
+          <div class="row gy-3">
+            <div class="col-md-6">
+              <label for="cc-name" class="form-label">Nombre del propietario</label>
+              <p id="propietario"></p>
+              
+
+            </div>
+
+            <div class="col-md-6">
+              <label for="cc-name" class="form-label">Nombre del propietario</label>
+              <p id="tarjeta"></p>
+            </div>
+
+            <div class="col-md-3">
+              <label for="cc-expiration" class="form-label">Caducidad</label>
+              <p id="caducidad"></p>
+            </div>
+
+            <div class="col-md-3">
+              <label for="cc-cvv" class="form-label">CVV</label>
+              <p id="cvv"></p>
+              
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <button id="boton_registar_actualizar1" style="margin: 10px; height: 50px; width: 400px; text-decoration: dotted;font-size: larger; background: blue; color: white;" type="button" >Ir a Mi tiendita</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2017–2021 Company Name</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+</div>
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="../assets/dist/js/form-validation.js"></script>
+    <script src="../js/perfil_mio.js"></script>
+  </body>
+</html>

@@ -10,7 +10,10 @@ document.getElementById('envios').textContent = usuarioActivo.envios;
 document.getElementById('country').textContent = usuarioActivo.pais
 document.getElementById('OpcionPago').textContent = usuarioActivo.pago;
 document.getElementById('propietario').textContent = usuarioActivo.propietario;
-cliente.tarjeta = document.getElementById('tarjeta').textContent = usuarioActivo.tarjeta;
-cliente.caducidad = document.getElementById('caducidad').textContent = usuarioActivo.caducidad;
-cliente.password = document.getElementById('password').textContent = usuarioActivo.password;
-cliente.cvv = document.getElementById('cvv').textContent = usuarioActivo.cvv;
+document.getElementById('tarjeta').textContent = usuarioActivo.tarjeta;
+document.getElementById('caducidad').textContent = usuarioActivo.caducidad;
+document.getElementById('cvv').textContent = usuarioActivo.cvv;
+
+document.getElementById('boton_registar_actualizar1').addEventListener('click', ()=>{
+    window.open('../index.html','_self')
+})

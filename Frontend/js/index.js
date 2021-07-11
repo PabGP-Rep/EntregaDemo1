@@ -84,11 +84,7 @@ export async function para_carrusel() {
         contenedor.setAttribute('src',productos_azar[0].thumbnail)
         let titulo = document.getElementById('carusel'+i.toString())
         titulo.textContent = '¿Quieres ver más? \n Checa nuestra categoría '+micategoria[indice].name;
-        let boton_carusel = document.getElementById('buscar'+i.toString());
-        boton_carusel.setAttribute('style',estilos.boton+'height:50px;width:150px;color:white');
-        boton_carusel.addEventListener('click', () => {
-            renderizarProductos(element.id)
-        })
+        
     }
 }
 export async function renderizarProductos(categoria) {
@@ -144,27 +140,27 @@ export async function renderizarProductos(categoria) {
     division.appendChild(boton_atras)
     boton_atras.addEventListener('click',() =>{
         window.open('./index.html','_self');
-        renderizarCategorias();
-        para_carrusel();
     })
+
 }
 
 async function AgregarProducto(element) {
     let carrito = JSON.parse(window.localStorage.getItem('carritoActivo'));
     if (carrito !=null) {
         agregarAlista(carrito.lista,element)
+        let carritos = JSON.parse(window.localStorage.getItem('usuariosEnSistema'));
+        let encontrar = carritos.findIndex(element =>{
+            return element.id === carrito.findIndex;
+        })
+        carrito.total+=element.price;
+        carritos[encontrar] = carrito;
+        window.localStorage.setItem('carritosRegistrados',JSON.stringify(carritos))
+        window.localStorage.setItem('carritoActivo',JSON.stringify(carrito));
+        console.log(carrito);
     }else{
         alert('Debes iniciar sesion para empezar a comprar')
     }
-    let carritos = JSON.parse(window.localStorage.getItem('usuariosEnSistema'));
-    let encontrar = carritos.findIndex(element =>{
-        return element.id === carrito.findIndex;
-    })
-    carrito.total+=element.price;
-    carritos[encontrar] = carrito;
-    window.localStorage.setItem('carritosRegistrados',JSON.stringify(carritos))
-    window.localStorage.setItem('carritoActivo',JSON.stringify(carrito));
-    console.log(carrito);
+    
 }
 
 
@@ -173,7 +169,7 @@ async function agregarAlista(lista,element) {
         return element.id === elemento.id;
     })
     if (encontrar=== -1) {
-        lista.push({id:element.id,nombre:element.title,precio:element.price,cantidad:1})
+        lista.push({id:element.id,nombre:element.title,precio:element.price,cantidad:1,total:element.price})
     }else {
         lista[encontrar].cantidad+=1;
         lista[encontrar].total+=element.price;

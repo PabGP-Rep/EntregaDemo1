@@ -55,10 +55,10 @@ document.getElementById('perfil_activo').addEventListener('click',()=>{
 ///Si no hay sesion iniciada, se envia al login tambien en lugar de al carrito de compras
 
 document.getElementById('facturacionindex').addEventListener('click',()=> {
-    if (JSON.parse(window.localStorage.getItem('usuarioActivo'))===null) {
-        window.open('http://google.com');
+    if (JSON.parse(window.localStorage.getItem('usuarioActivo'))!==null) {
+        window.open('./html/checkout_demo.html','_self')
     }else{
-        window.open('http://facebook.com')
+        alert('Para ver tus productos debes iniciar sesion')
     }
 })
 
@@ -73,10 +73,9 @@ document.getElementById('salirindex').addEventListener('click',()=> {
 })
 
 
-
-
 function borrar() {
     window.localStorage.removeItem('usuarioActivo')
     window.localStorage.removeItem('usuariosEnSistema')
     window.localStorage.removeItem('carritosRegistrados')
 }
+

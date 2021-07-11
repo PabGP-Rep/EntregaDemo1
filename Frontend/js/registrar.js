@@ -54,22 +54,24 @@ document.getElementById('boton_registar_actualizar3').addEventListener('click',(
             carritosRegistrados.push(new Carrito(cliente.username));
             window.localStorage.setItem('usuariosEnSistema',JSON.stringify(usuariosRegistrados));
             window.localStorage.setItem('carritosRegistrados',JSON.stringify(carritosRegistrados));
-            window.localStorage.removeItem('usuarioActivo')
-            window.localStorage.setItem('usuarioActivo',JSON.stringify(cliente))
+            window.localStorage.setItem('usuarioActivo',JSON.stringify(cliente));
         }else{
             alert('No están llenos los campos')
         }
     }else{
         alert('Nombre de usuario ya registrado')
     }
+    
     console.log(usuariosRegistrados);
     console.log(carritosRegistrados);
-    console.log(JSON.parse(window.sessionStorage.getItem('usuarioActivo')));
+    console.log(JSON.parse(window.localStorage.getItem('usuarioActivo')));
 })
 
 document.getElementById('boton_registar_actualizar4').addEventListener('click', () =>{
     if(JSON.parse(window.localStorage.getItem('usuarioActivo'))!==null){
         window.open('../index.html','_self');
+    }else{
+        alert('No se ha registrado correctamente')
     }
 })
 Countries();

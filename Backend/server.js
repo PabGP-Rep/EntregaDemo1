@@ -4,16 +4,19 @@ require('dotenv').config();
 
 //Servicios
 const { getProductsCategory, getProductsName, getCategories, getCountries } = require('./Services/ml.service.js');
+
+const cors = require('cors');
+
 //Middlewares
-//const { corsOption, limiter, controlApiKey, chkDatosValidos } = require('./middlewares/index');
+const { limiter, validacionDatos, corsOptions} = require('../Backend/Midleware/index');
 
 //configuración de middlewares globales
 app.use(express.json());
-//app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 //app.use(limiter)
 
-/*
+
 app.use((err, req, res, next) => {
   if (err) {
     if (!res.headersSent) {
@@ -22,7 +25,6 @@ app.use((err, req, res, next) => {
   }
   next();
 })
-*/
 
 //levantamiento del servidor
 app.listen(process.env.PORT, ()=> {
@@ -30,7 +32,7 @@ app.listen(process.env.PORT, ()=> {
 })
 
 //EntryPoint
-app.get('/', (req, res) => {
+app.get('/', cors(corsOptions), (req, res) => {
   res.status(200).json({
     message: 'Hola mundo desde API'
   }) 
@@ -57,8 +59,9 @@ app.get('/paises', async (req, res) => {
 })
 
 //Solicitud de Productos por Categoria
-app.get('/productos_categoria', async (req, res) => {
+app.post('/productos_categoria', async (req, res) => {
   try {
+    //console.log(req.body);
     const productos = await getProductsCategory(req.body);
     res.status(200).json(productos);
   } catch (error) {
@@ -67,31 +70,12 @@ app.get('/productos_categoria', async (req, res) => {
 })
 
 //Solicitud de Productos por Nombre
-app.get('/productos_nombre', async (req, res) => {
+app.post('/productos_nombre', validacionDatos, async (req, res) => {
   try {
+    //console.log(req.body);
     const productos = await getProductsName(req.body);
     res.status(200).json(productos);
   } catch (error) {
     return res.status(400).json(error.message)
   }
 })
-/*
-app.get('/users', cors(corsOption), controlApiKey, (req, res) => {
-  try {
-    const users = findUsers();
-    res.status(200).json(users)
-  } catch (error) {
-    return res.status(400).json(error.message)
-  }
-})
-
-app.post('/users', cors(corsOption), controlApiKey, chkDatosValidos, (req, res) => {
-  try {
-    const users = createUser (req.body);
-    return res.status(200).json(users);
-  } catch (error) {
-    console.log('entre al 2do  catch');
-    return res.status(400).json(error.message)
-  }
-})
-*/

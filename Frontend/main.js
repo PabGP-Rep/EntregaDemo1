@@ -1,7 +1,7 @@
 /// Esta parte trabaja solo con la pagina index
 
 import { Carrito, Cliente } from "./js/clases.js";
-import { consultar,categorias,ProductosporCategoria,productoImagenPorCategoria, renderizarCategorias, renderizarProductos, para_carrusel} from "./js/index.js";
+import { categorias,ProductosporCategoria,productoImagenPorCategoria, renderizarCategorias, renderizarProductos, para_carrusel} from "./js/index.js";
 
 ///En la página principal se muestran las categorias usuando la funcion importada desde index.js
 renderizarCategorias()
@@ -14,7 +14,7 @@ const searchInput = document.getElementById('search-input');
 searchButton.addEventListener('click', () => {
     const inputValue = searchInput.value;
     sessionStorage.setItem("textoBusqueda", inputValue);
-    window.location.href = "./html/index_demo_2.html?"       
+    window.location.href = "./Pagina_Resultados/Resultados.html"    
 });
 
 ///console.log(JSON.parse(window.localStorage.getItem('usuarioActivo')));

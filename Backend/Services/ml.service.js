@@ -4,7 +4,7 @@ require('dotenv').config();
 async function getProductsCategory(data) {
   try {    
     let {id} = data;
-    let url = process.env.CATEGORY_EP + id
+    let url = process.env.CATEGORY_EP + id    
     let productos = await fetch(url);
     let dataProductos = await productos.json();
     return dataProductos;

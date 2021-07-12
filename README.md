@@ -6,3 +6,4 @@ Paquetes utilizados en el desarrollo:
 - dotenv
 - node-fetch
 - nodemon
+- cors

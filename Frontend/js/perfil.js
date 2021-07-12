@@ -12,16 +12,16 @@ document.getElementById('boton_registar_actualizar3').addEventListener('click', 
 
 async function Countries() {
     //let country_form = document.getElementById('country');
-    
-    let countriesList = await fetch('https://api.mercadolibre.com/classified_locations/countries');
-    let countriesList_json = await countriesList.json()
-    .then((resp) => {
-        resp.forEach((element) => {
-            let option = document.createElement('option');
+
+    let url = 'http://localhost:3000/paises';
+    let countriesList = await fetch(url);
+    let countriesList_json = await countriesList.json();
+
+    countriesList_json.forEach(element => {
+      let option = document.createElement('option');
             option.textContent = element.name;
-            country_form.appendChild(option);          
-        });
-    })
+            country_form.appendChild(option);  
+    });   
 }
 
 

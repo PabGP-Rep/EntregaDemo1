@@ -1,3 +1,38 @@
+/*
+export async function categorias() {
+  let url = 'http://localhost:3000/categorias';
+  let categoriasConsulta = await fetch(url);
+  let categoriasConsulta_json = await categoriasConsulta.json();
+  return categoriasConsulta_json;
+}
+
+export async function ProductosporCategoria(categoria) {
+  /*
+  let parametros = { id: categoria };
+  let url = 'http://localhost:3000/productos_categoria';
+  let resultados = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(parametros)
+  });
+
+  let resultadosJson = await resultados.json();
+  let data = resultadosJson.results;
+  return data;
+  */
+/*
+  let url = `https://api.mercadolibre.com/sites/MLM/search?category=${categoria}`;
+  let productos = await fetch(url);
+  let productos_json = await productos.json();
+  return productos_json.results;
+
+  //let productos = await consultar(`sites/MLM/search?category=${categoria}`);
+  //return productos.results;
+}
+*/
+
 export async function consultar(endpoit) {
     let conexion = await fetch('https://api.mercadolibre.com/'+endpoit);
     let conexion_json = await conexion.json();

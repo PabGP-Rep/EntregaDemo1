@@ -59,7 +59,7 @@ import { Carrito, Cliente } from "../js/clases.js";
 
 ///Categoria de prueba MLM1747
 
-class estiloTarjeta {
+export class estiloTarjeta {
     constructor() {
         this.contenedorPrimario = 'height: auto; width: 300px; border:5px solid black; background: linear-gradient(to bottom, #33ccff 0%, #66ccff 100%);display:flex;justify-content:center;align-items:center;background-size:cover; border-radius:15px;margin:20px ';
         this.contenedorSecundario = 'height: auto; width: 90%;border:1px solid black; display:flex;flex-direction:column; align-content:center;justify-content:center; border-radius:15px; margin:5%';
@@ -179,7 +179,9 @@ export async function renderizarProductos(categoria) {
 
 }
 
-async function AgregarProducto(element) {
+
+
+export async function AgregarProducto(element) {
     let carrito = JSON.parse(window.localStorage.getItem('carritoActivo'));
     if (carrito !=null) {
         agregarAlista(carrito.lista,element)
@@ -204,9 +206,39 @@ async function agregarAlista(lista,element) {
         return element.id === elemento.id;
     })
     if (encontrar=== -1) {
-        lista.push({id:element.id,nombre:element.title,precio:element.price,cantidad:1,total:element.price})
+        lista.push({id:element.id,nombre:element.title,price:element.price,cantidad:1,total:element.price})
     }else {
         lista[encontrar].cantidad+=1;
         lista[encontrar].total+=element.price;
+    }
+}
+
+export async function eliminarProducto(element) {
+    let carrito = JSON.parse(window.localStorage.getItem('carritoActivo'));
+    if (carrito !=null) {
+        quitarAlista(carrito.lista,element)
+        let carritos = JSON.parse(window.localStorage.getItem('usuariosEnSistema'));
+        let encontrar = carritos.findIndex(element =>{
+            return element.id === carrito.findIndex;
+        })
+        carrito.total-=element.price;
+        carritos[encontrar] = carrito;
+        window.localStorage.setItem('carritosRegistrados',JSON.stringify(carritos))
+        window.localStorage.setItem('carritoActivo',JSON.stringify(carrito));
+        console.log(carrito);
+    }else{
+        alert('Debes iniciar sesion para empezar a comprar')
+    }
+}
+
+async function quitarAlista(lista, element) {
+    let encontrar = lista.findIndex(elemento =>{
+        return element.id === elemento.id;
+    })
+    if(lista[encontrar].cantidad>1){
+        lista[encontrar].cantidad-=1;
+        lista[encontrar].total-=lista[encontrar].price;
+    }else{
+        lista.splice(encontrar,1);
     }
 }

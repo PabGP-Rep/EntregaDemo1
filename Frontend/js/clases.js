@@ -67,7 +67,7 @@ export class Carrito {
 
 
 export class Cliente  {
-    constructor(nombre1,nombre2,apellido1,apellido2,username,password,direccion,envios,pais,pago,propietario,tarjeta,caducidad,cvv){
+    constructor(nombre1,nombre2,apellido1,apellido2,username,password,direccion,envios,pais,pago,propietario,tarjeta,caducidad,cvv,mail,telefono){
         this.nombre1 = nombre1;
         this.nombre2 = nombre2;
         this.apellido1 = apellido1;
@@ -82,6 +82,8 @@ export class Cliente  {
         this.tarjeta = tarjeta;
         this.caducidad = caducidad;
         this.cvv = cvv;
+        this.mail = mail;
+        this.telefono = telefono;
     }
 }
 

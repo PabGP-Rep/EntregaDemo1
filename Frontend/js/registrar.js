@@ -3,12 +3,12 @@ import { consultar } from "./index.js";
 
 async function Countries() {
     let country_form = document.getElementById('country');
-    /*let url = 'http://localhost:3000/paises';
+    let url = 'http://localhost:3000/paises';
     let countriesList = await fetch(url);
-    let countriesList_json = await countriesList.json();*/
-    let countriesList = await consultar('/countries')
+    let countriesList_json = await countriesList.json();
+    ///let countriesList = await consultar('/countries')
 
-    countriesList.forEach(element => {
+    countriesList_json.forEach(element => {
       let option = document.createElement('option');
             option.textContent = element.name;
             country_form.appendChild(option);  

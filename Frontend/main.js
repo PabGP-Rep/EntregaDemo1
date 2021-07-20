@@ -1,7 +1,7 @@
 /// Esta parte trabaja solo con la pagina index
 
 import { Carrito, Cliente } from "./js/clases.js";
-import { categorias,ProductosporCategoria,productoImagenPorCategoria, renderizarCategorias, renderizarProductos, para_carrusel} from "./js/index.js";
+import { categorias,ProductosporCategoria, renderizarCategorias, renderizarProductos, para_carrusel} from "./js/index.js";
 
 ///En la página principal se muestran las categorias usuando la funcion importada desde index.js
 renderizarCategorias()

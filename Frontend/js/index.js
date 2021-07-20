@@ -1,4 +1,4 @@
-/*
+
 export async function categorias() {
   let url = 'http://localhost:3000/categorias';
   let categoriasConsulta = await fetch(url);
@@ -7,7 +7,7 @@ export async function categorias() {
 }
 
 export async function ProductosporCategoria(categoria) {
-  /*
+  
   let parametros = { id: categoria };
   let url = 'http://localhost:3000/productos_categoria';
   let resultados = await fetch(url, {
@@ -21,18 +21,18 @@ export async function ProductosporCategoria(categoria) {
   let resultadosJson = await resultados.json();
   let data = resultadosJson.results;
   return data;
-  */
-/*
+  
+  /*
   let url = `https://api.mercadolibre.com/sites/MLM/search?category=${categoria}`;
   let productos = await fetch(url);
   let productos_json = await productos.json();
   return productos_json.results;
 
   //let productos = await consultar(`sites/MLM/search?category=${categoria}`);
-  //return productos.results;
+  //return productos.results;*/
 }
-*/
 
+/*
 export async function consultar(endpoit) {
     let conexion = await fetch('https://api.mercadolibre.com/'+endpoit);
     let conexion_json = await conexion.json();
@@ -54,7 +54,7 @@ export async function productoImagenPorCategoria(categoria) {
     let productos = await ProductosporCategoria(categoria);
     return productos[0].thumbnail
 }
-
+*/
 import { Carrito, Cliente } from "../js/clases.js";
 
 ///Categoria de prueba MLM1747

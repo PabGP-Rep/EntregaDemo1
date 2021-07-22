@@ -1,7 +1,8 @@
-import {estiloTarjeta,AgregarProducto,eliminarProducto} from './index.js'
+import {estiloTarjeta,AgregarProducto,eliminarProducto} from './index_conclase.js'
+
 let estilos_ = new estiloTarjeta;
 let usuarioActivo = JSON.parse(window.localStorage.getItem('carritoActivo'));
-console.log(usuarioActivo);
+//console.log(usuarioActivo);
 let productos = usuarioActivo.lista;
 
 let estilos = {

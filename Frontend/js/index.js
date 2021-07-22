@@ -80,7 +80,6 @@ export async function renderizarCategorias () {
     .then((resp) =>{
         resp.forEach(async (element) => {
             let productos =await ProductosporCategoria(element.id);
-
             let imagen  = document.createElement('img');
             imagen.setAttribute('src',productos[0].thumbnail);
             imagen.setAttribute('style', estilos.imagen)
@@ -123,6 +122,7 @@ export async function para_carrusel() {
     }
 }
 export async function renderizarProductos(categoria) {
+    window.open('./html/productos.html',self);
     para_carrusel();
     let lista= [];
     let division = document.getElementById('division_principal_Index');
@@ -130,7 +130,8 @@ export async function renderizarProductos(categoria) {
     let productos_categoria = await ProductosporCategoria(categoria)
     .then((resp) =>{
         resp.forEach(element => {
-            lista.push(element)
+            console.log(element);
+            lista.push(element);
             let imagen  = document.createElement('img');
             imagen.setAttribute('src',element.thumbnail);
             imagen.setAttribute('style', estilos.imagen)

@@ -13,6 +13,7 @@ app.use(cors());
 
 //levantamiento del servidor
 app.listen(process.env.PORT, ()=> {
+    console.log(process.env.PORT);
     console.log(`Servidor iniciado en http://${process.env.HOST}:${process.env.PORT}`);
 })
 

@@ -1,14 +1,13 @@
 import { Carrito, Cliente } from "../js/clases.js";
-import { consultar } from "./index.js";
 
 async function Countries() {
     let country_form = document.getElementById('country');
-    /*let url = 'http://localhost:3000/paises';
+    let url = 'http://localhost:3000/paises';
     let countriesList = await fetch(url);
-    let countriesList_json = await countriesList.json();*/
-    let countriesList = await consultar('/countries')
+    let countriesList_json = await countriesList.json();
+    ///let countriesList = await consultar('/countries')
 
-    countriesList.forEach(element => {
+    countriesList_json.forEach(element => {
       let option = document.createElement('option');
             option.textContent = element.name;
             country_form.appendChild(option);  
@@ -29,8 +28,10 @@ const crearCliente = () =>{
     cliente.propietario = document.getElementById('propietario').value;
     cliente.tarjeta = document.getElementById('tarjeta').value;
     cliente.caducidad = document.getElementById('caducidad').value; 
-    cliente.password = document.getElementById('password').value
-    cliente.cvv = document.getElementById('cvv').value
+    cliente.password = document.getElementById('password').value;
+    cliente.cvv = document.getElementById('cvv').value;
+    cliente.mail = document.getElementById('mail').value;
+    cliente.tel = document.getElementById('telefono').value;
     return cliente
 }
 
@@ -56,6 +57,7 @@ document.getElementById('boton_registar_actualizar3').addEventListener('click',(
             window.localStorage.setItem('usuariosEnSistema',JSON.stringify(usuariosRegistrados));
             window.localStorage.setItem('carritosRegistrados',JSON.stringify(carritosRegistrados));
             window.localStorage.setItem('usuarioActivo',JSON.stringify(cliente));
+            alert('Bienvenido nuevo usuario');
         }else{
             alert('No están llenos los campos')
         }

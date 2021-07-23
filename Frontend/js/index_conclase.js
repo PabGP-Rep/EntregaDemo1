@@ -245,7 +245,7 @@ export class Storage {
         searchButton.addEventListener('click', () => {
             const inputValue = searchInput.value;
             sessionStorage.setItem("textoBusqueda", inputValue);
-            window.location.href = direcion+"./Pagina_Resultados/Resultados.html"    
+            window.location.href = direccion+"./Pagina_Resultados/Resultados.html"    
         });
 
         document.getElementById('salirindex').addEventListener('click',()=> {

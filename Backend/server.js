@@ -8,6 +8,7 @@ const sequelize = require('./db/conexion');
 const mlRoute = require('./routes/ml.routes');
 const productRoute = require('./routes/productos.routes');
 const categoryRoute = require('./routes/categorias.routes');
+const clientesRoutes = require('./routes/clientes.routes');
 
 //configuración de middlewares globales
 app.use(express.json());
@@ -31,3 +32,4 @@ initServer();
 mlRoute(app);
 categoryRoute(app);
 productRoute(app);
+clientesRoutes(app);

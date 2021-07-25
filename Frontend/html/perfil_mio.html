@@ -9,7 +9,7 @@
     <title>Mi tiendita</title>
     <link rel="icon" type="image/x-icon" href="../images/thumbs/shopping-cart-20392.png">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
-
+    <link rel="stylesheet" href="../css/perfil.css">
     
 
     <!-- Bootstrap core CSS -->
@@ -44,53 +44,57 @@
       <p class="lead" id="saludo_cliente">¡Siempre es un gusto que nos visites!</p>
     </div>
       <div class="col-md-7 col-lg-8">
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" novalidate> 
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="firstName" class="form-label">Primer nombre</label>
-              <p id="nombre1"></p>
-              
+              <input type="text" id="nombre1" class="input">
             </div>
 
             <div class="col-sm-6">
               <label for="lastName" class="form-label">Segundo nombre<span class="text-muted">(Optional)</span></label>
-              <p id="nombre2"></p>
+              <input type="text" id="nombre2" class="input">
             </div>
 
             <div class="col-sm-6">
               <label for="firstName" class="form-label">Apellido paterno</label>
-              <p id="apellido1"></p>
+              <input type="text" id="apellido1" class="input">
               
             </div>
 
             <div class="col-sm-6">
               <label for="firstName" class="form-label">Apellido materno</label>
-              <p id="apellido2"></p>
-              
+              <input type="text" id="apellido2" class="input">
             </div>
 
             <div class="col-12">
               <label for="username" class="form-label">Usuario</label>
               <div class="input-group has-validation">
-                <p id="username"></p>
-              
+                <input type="text" id="username" class="input">
               </div>
             </div>
+
+            <div class="col-12">
+              <label for="username" class="form-label">Password</label>
+              <div class="input-group has-validation">
+                <input type="text" id="password" class="input">
+              </div>
+            </div>
+
             <div class="col-12">
               <label for="address" class="form-label">Dirección propia</label>
-              <p id="direccion"></p>
-              
+              <input type="text" id="direccion" class="input">
             </div>
 
             <div class="col-12">
               <label for="address2" class="form-label">Dirección de envío </label>
-              <p id="envios"></p>
+              <input type="text" id="envios" class="input">
               
             </div>
 
             <div class="col-md-5">
               <label for="country" class="form-label">País</label>
-                <p id="country"></p>
+              <input type="text" id="country" class="input">
               
             </div>
           </div>
@@ -107,34 +111,49 @@
           <div class="row gy-3">
             <div class="col-md-6">
               <label for="cc-name" class="form-label">Nombre del propietario</label>
-              <p id="propietario"></p>
+              <input type="text" id="propietario" class="input">
               
 
             </div>
 
             <div class="col-md-6">
-              <label for="cc-name" class="form-label">Nombre del propietario</label>
-              <p id="tarjeta"></p>
+              <label for="cc-name" class="form-label">Numero de tarjeta</label>
+              <input type="text" id="tarjeta" class="input">
             </div>
 
             <div class="col-md-3">
               <label for="cc-expiration" class="form-label">Caducidad</label>
-              <p id="caducidad"></p>
+              <input type="text" id="caducidad" class="input">
             </div>
 
             <div class="col-md-3">
               <label for="cc-cvv" class="form-label">CVV</label>
-              <p id="cvv"></p>
+              <input type="text" id="cvv" class="input">
               
             </div>
           </div>
-
           <hr class="my-4">
-
-          <button id="boton_registar_actualizar1" style="margin: 10px; height: 50px; width: 400px; text-decoration: dotted;font-size: larger; background: blue; color: white;" type="button" >Ir a Mi tiendita</button>
+          <h4 class="mb-3">Contacto</h4>
+          <div class="col-md-3">
+            <label for="cc-expiration" class="form-label">Correo</label>
+            <input type="email" class="form-control" id="mail" placeholder="" required autocomplete="off">
+            <div class="invalid-feedback">
+              Nos falta tu correo
+            </div>
+          </div>
+          <div class="col-md-3" style="margin-bottom: 10px;">
+            <label for="cc-expiration" class="form-label">Telefono</label>
+            <input type="text" class="form-control" id="telefono" placeholder="" autocomplete="off">
+            <div class="invalid-feedback">
+            </div>
+          </div>
+          <hr class="my-4">          
+          <button id="boton-actualizar" class="botones" >Guardar Cambios</button>
+          <button id="boton-eliminar" class="botones" >Dar de Baja</button>
         </form>
       </div>
     </div>
+
   </main>
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
@@ -146,9 +165,8 @@
     </ul>
   </footer>
 </div>
-
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
       <script src="../assets/dist/js/form-validation.js"></script>
-    <script src="../js/perfil_mio.js"></script>
+    <script src="../js/perfil_mio.js" type="module"></script>
   </body>
 </html>

@@ -1,5 +1,5 @@
-const { listarClientes,eliminarCliente,buscarCliente,actualizarCliente,agregarCliente } = require("../controllers/clientes.controlador");
-const { clienteDatosEnviados,checarCliente,puedeVerInfo,clienteUsuarioEnviado,clienteExiste } = require("../Midleware/clientes.middleware");
+const { listarClientes,eliminarCliente,buscarCliente,actualizarCliente,agregarCliente } = require("../controller/clientes.controlador");
+const { clienteDatosEnviados,checarCliente,puedeVerInfo,clienteUsuarioEnviado,clienteExiste } = require("../Midleware/clientes.middlewares");
 module.exports = (app) =>{
     app.post('/clientes',clienteUsuarioEnviado,checarCliente,puedeVerInfo, async (req,res) =>{
         try {

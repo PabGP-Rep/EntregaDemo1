@@ -90,6 +90,20 @@ export class Conexiones {
         let resultadosJson = await resultados.json();
         let data = resultadosJson.results;
         return data;
+    };
+
+    static async Countries() {
+        let country_form = document.getElementById('country');
+        let url = 'http://localhost:3000/paises';
+        let countriesList = await fetch(url);
+        let countriesList_json = await countriesList.json();
+        ///let countriesList = await consultar('/countries')
+
+        countriesList_json.forEach(element => {
+        let option = document.createElement('option');
+                option.textContent = element.name;
+                country_form.appendChild(option);  
+        });
     }
 }
 
@@ -303,6 +317,129 @@ export class Storage {
         window.localStorage.removeItem('carritosRegistrados');
     }
 }
+
+
+export class CRUDCliente {
+    constructor(){
+
+    }
+
+    static async verusuarios(usuario){
+        let busqueda = await fetch('http://localhost:3000/clientes',{
+            method:'POST',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                USERNAME: usuario.USERNAME,
+                PASSWORD_USUARIO: usuario.PASSWORD_USUARIO
+            })
+        })
+        const lista = busqueda.json();
+        return lista;
+    }
+    static async registrar_usuario(usuario) {
+        try {
+            let agregar = await fetch("http://localhost:3000/clientes/nuevo",{
+                method:'POST',
+                headers: {
+                    "Accept": "application/json, text/plain, */*",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    PAPEL: usuario.PAPEL,
+                    NOMBRE1: usuario.NOMBRE1,
+                    NOMBRE2:usuario.NOMBRE2,
+                    APELLIDO1: usuario.APELLIDO1,
+                    APELLIDO2: usuario.APELLIDO2,
+                    USERNAME: usuario.USERNAME,
+                    DIRECCION: usuario.DIRECCION,
+                    ENVIOS: usuario.ENVIOS,
+                    PAIS: usuario.PAIS,
+                    FORMA_PAGO: usuario.FORMA_PAGO,
+                    PROPIETARIO_TARJETA: usuario.PROPIETARIO_TARJETA,
+                    NUM_TARJETA: usuario.NUM_TARJETA,
+                    CADUCIDAD: usuario.CADUCIDAD,
+                    PASSWORD_USUARIO: usuario.PASSWORD_USUARIO,
+                    CVV: usuario.CVV,
+                    MAIL: usuario.MAIL,
+                    TELEFONO: usuario.TELEFONO
+                }),
+
+            })
+            const agregar_json = agregar.json();
+            return agregar_json;
+        } catch (error) {
+            console.log('nuevo'+error);
+        }
+      
+    }
+
+    static async actualizar_usuario(usuario) {
+        let resultado = await fetch('http://localhost:3000/clientes/actualizar', {
+            method:'POST',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                PAPEL: usuario.PAPEL,
+                NOMBRE1: usuario.NOMBRE1,
+                NOMBRE2:usuario.NOMBRE2,
+                APELLIDO1: usuario.APELLIDO1,
+                APELLIDO2: usuario.APELLIDO2,
+                USERNAME: usuario.USERNAME,
+                DIRECCION: usuario.DIRECCION,
+                ENVIOS: usuario.ENVIOS,
+                PAIS: usuario.PAIS,
+                FORMA_PAGO: usuario.FORMA_PAGO,
+                PROPIETARIO_TARJETA: usuario.PROPIETARIO_TARJETA,
+                NUM_TARJETA: usuario.NUM_TARJETA,
+                CADUCIDAD: usuario.CADUCIDAD,
+                PASSWORD_USUARIO: usuario.PASSWORD_USUARIO,
+                CVV: usuario.CVV,
+                MAIL: usuario.MAIL,
+                TELEFONO: usuario.TELEFONO
+            })
+        })
+        let resultado_json = resultado.json();
+        return resultado_json;
+    }
+    
+    static async borrar_usuario(usuario) {
+        let resultado = await fetch('http://localhost:3000/clientes/eliminar', {
+            method:'POST',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                USERNAME: usuario.USERNAME,
+                PASSWORD_USUARIO: usuario.PASSWORD_USUARIO
+            })
+        })
+        let resultado_json = resultado.json();
+        return resultado_json;
+    }
+
+    static async consultar_usuario(usuario) {
+        let resultado = await fetch('http://localhost:3000/clientes/miperfil',{
+            method:'POST',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                USERNAME: usuario.USERNAME,
+                PASSWORD_USUARIO: usuario.PASSWORD_USUARIO
+            })
+        })
+        let resultado_json = resultado.json();
+        return resultado_json;
+    }
+} 
+
 
 
 

@@ -1,6 +1,6 @@
 
 
-const sequelize = require("../db/conexionMitiendita");
+const sequelize = require("../db/conexion");
 const Clientedb = require("../models/clientes.modelo")
 
 
@@ -43,7 +43,6 @@ const eliminarCliente = async (usuario) =>{
 
 const actualizarCliente = async (usuario) =>{
     try {
-        
         await Clientedb.update({NOMBRE1: usuario.NOMBRE1,NOMBRE2:usuario.NOMBRE2,PAPEL: usuario.PAPEL,APELLIDO1:usuario.APELLIDO1,
         APELLIDO2: usuario.APELLIDO2,DIRECCION:usuario.DIRECCION,ENVIOS:usuario.ENVIOS, PAIS: usuario.PAIS, FORMA_PAGO:usuario.FORMA_PAGO,
         PROPIETARIO_TARJETA:usuario.PROPIETARIO_TARJETA, NUM_TARJETA: usuario.NUM_TARJETA, CADUCIDAD:usuario.CADUCIDAD, 
@@ -52,8 +51,7 @@ const actualizarCliente = async (usuario) =>{
             where: {USERNAME: usuario.USERNAME}
         });
     } catch (error) {
-        console.log(error);
-        throw new Error('Error al actualizar cliente',error);
+        throw new Error('Error al actualizar cliente');
     }
 }
 

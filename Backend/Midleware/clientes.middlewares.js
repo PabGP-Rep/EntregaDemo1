@@ -1,4 +1,6 @@
 
+const Clientedb = require("../models/clientes.modelo");
+
 const clienteUsuarioEnviado = function (req,res,next) {
     if (!req.body.USERNAME || !req.body.PASSWORD_USUARIO){
        return res.status(400).json('Datos invalidos')
@@ -7,13 +9,12 @@ const clienteUsuarioEnviado = function (req,res,next) {
 }
 
 const checarCliente= async function (req,res,next) {
-    let listaClientes =await listarClientes();
-    let encontrado = listaClientes[0].find((element)=>{
-        return element.USERNAME === req.body.USERNAME;
-    })
-    if (!encontrado) {
-        return res.status(400).json('Usuario no encontrado');
-    }else if (encontrado.PASSWORD_USUARIO !== req.body.PASSWORD_USUARIO){
+    let listaClientes = await Clientedb.findAll(
+        {where: {USERNAME:req.body.USERNAME}}
+    );
+    if(listaClientes.length ===0){
+        return res.status(400).json('No existe el usuario');
+    }else if(listaClientes[0].PASSWORD_USUARIO !== req.body.PASSWORD_USUARIO){
         return res.status(400).json('Contraseña incorrecta')
     }
     return next();
@@ -28,24 +29,22 @@ const clienteDatosEnviados = function(req,res,next) {
 }
 
 const clienteExiste = async function(req,res,next) {
-    let listaClientes = await listarClientes();
-    let encontrado = listaClientes[0].some((element) =>{
-        return element.USERNAME === req.body.USERNAME;
-    })
-    if(encontrado) {
-        return res.status(400).json('Usuario ya existe')
+    let listaClientes = await Clientedb.findAll(
+        {where: {USERNAME: req.body.USERNAME}}
+    );
+    if(listaClientes.length > 0) {
+        return res.status(400).json('Usuario ya registrado')
     }
     return next();
 }
 
 
 const puedeVerInfo = async function(req,res,next) {
-    let listaClientes = await listarClientes();
-    let encontrado = listaClientes[0].find((element) =>{
-        return element.USERNAME === req.body.USERNAME 
-    })
-    if(encontrado.PAPEL !=='ADMIN') {
-        return res.status(400).json('Usuario no autorizado para ver esto')
+    let listaClientes = await Clientedb.findAll(
+        {where: {USERNAME: req.body.USERNAME}}
+    );
+    if (listaClientes[0].PAPEL !== 'ADMIN') {
+        return res.status(400).json('Usuario no autorizado a ver esto')
     }
     return next();
 }

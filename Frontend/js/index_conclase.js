@@ -1,6 +1,7 @@
 ///En este nuevo sistema se usan clases en la mayor parte de los casos para evitar repeticion de codigo
 //Es más limpio y solo se conservan un par de funciones sueltas 
 
+import { Carrito, Cliente } from "./clases.js";
 
 export async function AgregarProducto(element) {
     let carrito = JSON.parse(window.localStorage.getItem('carritoActivo'));
@@ -316,6 +317,30 @@ export class Storage {
         window.localStorage.removeItem('usuariosEnSistema');
         window.localStorage.removeItem('carritosRegistrados');
     }
+
+    static crearCliente = () =>{
+        let cliente = new Cliente;
+        cliente.nombre1 = document.getElementById('nombre1').value;
+        cliente.nombre2 = document.getElementById('nombre2').value;
+        cliente.apellido1 = document.getElementById('apellido1').value;
+        cliente.apellido2 = document.getElementById('apellido2').value;
+        cliente.username = document.getElementById('username').value;
+        cliente.direccion = document.getElementById('direccion').value;
+        cliente.envios = document.getElementById('envios').value;
+        cliente.pais = document.getElementById('country').value;
+        cliente.pago = document.getElementById('OpcionPago').value;
+        cliente.propietario = document.getElementById('propietario').value;
+        cliente.tarjeta =parseInt( document.getElementById('tarjeta').value,10);
+        cliente.caducidad = document.getElementById('caducidad').value; 
+        cliente.password = document.getElementById('password').value;
+        cliente.cvv = document.getElementById('cvv').value;
+        cliente.mail = document.getElementById('mail').value;
+        cliente.tel = document.getElementById('telefono').value;
+        console.log(cliente);
+        return cliente
+    }
+
+   
 }
 
 

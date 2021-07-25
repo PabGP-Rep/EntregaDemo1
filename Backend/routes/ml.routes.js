@@ -3,7 +3,6 @@ let mlService = new MercadoLibre();
 
 const { limiter, validacionDatos} = require('../Midleware/index');
 
-
 module.exports = (app) => {
   //EntryPoint
   app.get('/', (req, res) => {
@@ -62,5 +61,5 @@ module.exports = (app) => {
     }
     next();
   })
-
+  
 }

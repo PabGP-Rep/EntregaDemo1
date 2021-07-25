@@ -7,6 +7,8 @@ Paquetes utilizados en el desarrollo:
 - node-fetch
 - nodemon
 - cors
+- sequelize
+- tedious
 
 Enlace a la página obtenida:
 https://angelsequeda.github.io/

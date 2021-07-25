@@ -1,56 +1,48 @@
-const Categoria = require('../models/model.categoria');
+const Category = require('../Services/categorias.service');
 
-module.exports.listarCategorias = async () => {
+const categoryService = new Category();
+
+const crearCategoria = async (req, res) => {
+  const { nombre, imagen } = req.body
   try {
-    const categorias = await Categoria.findAll(); 
-    return categorias;    
+    const categoria = await categoryService.createCategory(nombre, imagen);
+    console.log("Categoria creada con exito [CONTROLLER]");  
+    res.status(201).json(categoria);
   } catch (error) {
-    throw new Error ({error})
+    return res.status(500);
   }
 }
 
-module.exports.crearCategoria = async (data) => {
+const consultarCategorias = async (req, res) => {
   try {
-    const categoria = await Categoria.create({ NOMBRE: data.NOMBRE, IMAGEN: data.IMAGEN});
-    console.log("Categoria creada con exito");
-    //console.log(categoria);    
-    return categoria;
+    const categorias = await categoryService.readCategory();
+    console.log("Consulta realizada con exito [CONTROLLER]");
+    res.status(200).json(categorias);
   } catch (error) {
-    throw new Error ({error})
+    return res.status(500);
   }
 }
 
-module.exports.actualizarCategoria = async (data) => {
+const actualizarCategoria = async (req, res) => {
+  const { id, nombre, imagen } = req.body
   try {
-    console.log(data);
-    await Categoria.update({
-      NOMBRE: data.NOMBRE,
-      IMAGEN: data.IMAGEN
-    },
-    {
-      where: {
-        ID_CATEGORIA: data.ID 
-      }
-    });  
-    console.log("Categoria actualizada con exito");       
-    return "Categoria actualizada con exito";
+    resultado = await categoryService.updateCategory(id, nombre, imagen);
+    console.log("Categoria actualizada con exito [CONTROLLER]");
+    res.status(200).json(resultado);
   } catch (error) {
-    console.log(er);
-    throw new Error ({error})
+    return res.status(500);
   }
 }
 
-module.exports.eliminarCategoria = async (data) => {
+const eliminarCategoria = async (req, res) => {
+  const { id, nombre, imagen } = req.body
   try {
-    await Categoria.destroy({
-      where: {
-        NOMBRE: data.NOMBRE,
-        IMAGEN: data.IMAGEN
-      }
-    });  
-    console.log("Categoria eliminada con exito");       
-    return "Categoria eliminada con exito";
+    resultado = await categoryService.deleteCategory(id, nombre, imagen);
+    console.log("Categoria eliminada con exito [CONTROLLER]");
+    res.status(200).json(resultado);
   } catch (error) {
-    throw new Error ({error})
+    return res.status(500);
   }
 }
+
+module.exports = { consultarCategorias, crearCategoria, actualizarCategoria, eliminarCategoria}

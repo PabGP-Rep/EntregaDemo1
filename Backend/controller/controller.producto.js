@@ -1,64 +1,48 @@
-const Producto = require('../models/model.producto');
+const Product = require('../Services/producto.service');
 
-module.exports.listarProductos = async () => {
+const productService = new Product();
+
+const crearProducto = async (req, res) => {
+  const { idCategoria, nombre, precio, imagen } = req.body
   try {
-    const productos = await Producto.findAll();   
-    return productos;    
+    const producto = await productService.createProduct(idCategoria, nombre, precio, imagen);
+    console.log("Producto creado con exito [CONTROLLER]");  
+    res.status(201).json(producto);
   } catch (error) {
-    throw new Error ({error})
+    return res.status(500);
   }
 }
 
-module.exports.crearProducto = async (data) => {
+const consultarProductos = async (req, res) => {
   try {
-    const producto = await Producto.create({ 
-      ID_CATEGORIA: data.ID_CATEGORIA,
-      NOMBRE: data.NOMBRE,
-      PRECIO: data.PRECIO,
-      IMAGEN: data.IMAGEN
-    });
-    console.log("Producto creado con exito");     
-    return producto;
+    const productos = await productService.readProduct();
+    console.log("Consulta realizada con exito [CONTROLLER]");
+    res.status(200).json(productos);
   } catch (error) {
-    throw new Error ({error})
+    return res.status(500);
   }
 }
 
-module.exports.actualizarProducto = async (data) => {
+const actualizarProducto = async (req, res) => {
+  const { id, idCategoria, nombre, precio, imagen } = req.body
   try {
-    console.log(data);
-    await Producto.update({
-      ID_CATEGORIA: data.ID_CATEGORIA,
-      NOMBRE: data.NOMBRE,
-      PRECIO: data.PRECIO,
-      IMAGEN: data.IMAGEN
-    },
-    {
-      where: {
-        ID_PRODUCTO: data.ID 
-      }
-    });  
-    console.log("Producto actualizado con exito");       
-    return "Producto actualizado con exito";
+    resultado = await productService.updateProduct(id, idCategoria, nombre, precio, imagen);
+    console.log("Producto actualizado con exito [CONTROLLER]");
+    res.status(200).json(resultado);
   } catch (error) {
-    console.log(error);
-    throw new Error ({error})
+    return res.status(500);
   }
 }
 
-module.exports.eliminarProducto = async (data) => {
+const eliminarProducto = async (req, res) => {
+  const { id, idCategoria, nombre, precio, imagen } = req.body
   try {
-    await Producto.destroy({
-      where: {
-        ID_CATEGORIA: data.ID_CATEGORIA,
-        NOMBRE: data.NOMBRE,
-        PRECIO: data.PRECIO,
-        IMAGEN: data.IMAGEN
-      }
-    });  
-    console.log("Producto eliminado con exito"); 
-    return "Producto eliminado con exito";
+    resultado = await productService.deleteProduct(id, idCategoria, nombre, precio, imagen);
+    console.log("Producto eliminado con exito [CONTROLLER]");
+    res.status(200).json(resultado);
   } catch (error) {
-    throw new Error ({error})
+    return res.status(500);
   }
 }
+
+module.exports = { crearProducto, consultarProductos, actualizarProducto, eliminarProducto }

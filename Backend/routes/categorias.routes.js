@@ -1,4 +1,3 @@
-const categoryController = require('../controller/controller.categoria');
 const {consultarCategorias, crearCategoria, actualizarCategoria, eliminarCategoria} = require('../controller/controller.categoria');
 
 module.exports = (app) => {

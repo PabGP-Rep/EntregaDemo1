@@ -12,7 +12,7 @@ document.getElementById('boton-actualizar').addEventListener('click', async ()=>
         ENVIOS:cliente.envios, PAIS: cliente.pais, FORMA_PAGO: cliente.pago, PROPIETARIO_TARJETA: cliente.propietario,CADUCIDAD:cliente.caducidad, NUM_TARJETA: cliente.tarjeta, PASSWORD_USUARIO: cliente.password, MAIL: cliente.mail, TELEFONO: cliente.tel,CVV: cliente.cvv } )
         alert(resultado);
         let buscado =await CRUDCliente.consultar_usuario({USERNAME: document.getElementById('username').value,PASSWORD_USUARIO:document.getElementById('password').value});
-        Storage.crearCliente();
+        localStorage.setItem('usuarioActivo',JSON.stringify(buscado));
         Storage.subirNuevoCliente();
     } catch (error) {
         console.log(error);

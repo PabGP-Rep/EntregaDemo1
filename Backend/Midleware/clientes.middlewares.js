@@ -1,4 +1,3 @@
-
 const Clientedb = require("../models/clientes.modelo");
 
 const clienteUsuarioEnviado = function (req,res,next) {
@@ -44,8 +43,9 @@ const puedeVerInfo = async function(req,res,next) {
         {where: {USERNAME: req.body.USERNAME}}
     );
     if (listaClientes[0].PAPEL !== 'ADMIN') {
-        return res.status(400).json('Usuario no autorizado a ver esto')
+        return res.status(403).json('Usuario no autorizado a ver esto')
     }
     return next();
 }
+
 module.exports = {clienteUsuarioEnviado,checarCliente, clienteExiste,clienteDatosEnviados,puedeVerInfo}

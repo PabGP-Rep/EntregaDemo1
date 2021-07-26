@@ -19,7 +19,7 @@ const buscarCliente = async (req, res) =>{
     console.log("Perfil encontrado con exito [CONTROLLER]");
     res.status(200).json(cliente);
   } catch (error) {
-    return res.status(500);
+    throw new Error('Usuario no existe');
   }
 }
 
@@ -38,9 +38,9 @@ const actualizarCliente = async (req, res) =>{
   try {
     let cliente = await clientService.updateClient(clientData);
     console.log("Cliente actualizado correctamente [CONTROLLER]");
-    res.status(200).json(cliente);
+    res.status(200).json('Usuario actualizado con exito');
   } catch (error) {
-    return res.status(500);
+    throw new Error('Error al actualizar usuario')
   }
 }
 
@@ -51,7 +51,7 @@ const eliminarCliente = async (req, res) =>{
     console.log("Cliente eliminado correctamente [CONTROLLER]");
     res.status(200).json(cliente);
   } catch (error) {
-    return res.status(500);
+    throw new Error('Error al eliminar usuario')
   }
 }
 

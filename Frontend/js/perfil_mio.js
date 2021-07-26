@@ -12,6 +12,7 @@ document.getElementById('boton-actualizar').addEventListener('click', async ()=>
         ENVIOS:cliente.envios, PAIS: cliente.pais, FORMA_PAGO: cliente.pago, PROPIETARIO_TARJETA: cliente.propietario,CADUCIDAD:cliente.caducidad, NUM_TARJETA: cliente.tarjeta, PASSWORD_USUARIO: cliente.password, MAIL: cliente.mail, TELEFONO: cliente.tel,CVV: cliente.cvv } )
         alert(resultado)
         let buscado =await CRUDCliente.consultar_usuario({USERNAME: document.getElementById('username').value,PASSWORD_USUARIO:document.getElementById('password').value})
+        console.log(buscado);
         localStorage.setItem('usuarioActivo',JSON.stringify(buscado))
         Storage.subirNuevoCliente();
     } catch (error) {
@@ -24,7 +25,7 @@ document.getElementById('boton-eliminar').addEventListener('click',async ()=>{
     try {
         let resultado = await CRUDCliente.borrar_usuario({USERNAME:document.getElementById('username').value,PASSWORD_USUARIO:document.getElementById('password').value})
         alert(resultado);
-        if(resultado === 'Usuario eliminado con exito') {
+        if(resultado === 'Cliente eliminado correctamente [CONTROLLER]') {
             Storage.borrar();
             window.open('../index.html','_self')
         }

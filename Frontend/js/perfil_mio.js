@@ -24,7 +24,7 @@ document.getElementById('boton-eliminar').addEventListener('click',async ()=>{
     try {
         let resultado = await CRUDCliente.borrar_usuario({USERNAME:document.getElementById('username').value,PASSWORD_USUARIO:document.getElementById('password').value})
         alert(resultado);
-        if(resultado === 'Usuario eliminado con exito') {
+        if(resultado === 'Cliente eliminado correctamente') {
             Storage.borrar();
             window.open('../index.html','_self')
         }

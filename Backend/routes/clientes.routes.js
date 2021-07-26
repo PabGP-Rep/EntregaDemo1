@@ -5,7 +5,7 @@ module.exports = (app) =>{
 
   app.post('/clientes/nuevo', clienteDatosEnviados, clienteExiste, crearCliente);
 
-  app.post('/clientes/miperfil', clienteUsuarioEnviado,  buscarCliente);
+  app.post('/clientes/miperfil', clienteUsuarioEnviado,checarCliente,  buscarCliente);
 
   app.post('/clientes', clienteUsuarioEnviado, checarCliente, puedeVerInfo, listarClientes);
 

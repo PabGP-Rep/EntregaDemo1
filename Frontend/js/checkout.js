@@ -6,7 +6,8 @@ let usuarioActivo = JSON.parse(window.localStorage.getItem('carritoActivo'));
 let productos = usuarioActivo.lista;
 
 let estilos = {
-    fila: "display:flex;flex-direction:row;justify-content:flex-start;border-bottom:1px solid black; margin-right: 10px ; font-size:50opx"
+    fila: "display:flex;flex-direction:row;justify-content:flex-start;border-bottom:1px solid black; margin-right: 10px ; font-size:50opx color:black",
+    input: "display: flex; flex-direction:row; justify-content:center;align-content:center; color:black; "
 }
 
 productos.forEach(element => {
@@ -15,10 +16,14 @@ productos.forEach(element => {
     producto.textContent = element.nombre;
     let precio = document.createElement('th');
     let precio_input = document.createElement('input');
+    precio_input.style = estilos.input;
+    precio_input.disabled = true;
     precio_input.value = '$'+element.total;
     precio.appendChild(document.createElement('form').appendChild(precio_input))
     let cantidad = document.createElement('th');
     let cantidad_input = document.createElement('input');
+    cantidad_input.style = estilos.input;
+    cantidad_input.disabled = true;
     cantidad_input.value = element.cantidad;
     cantidad.appendChild(document.createElement('form').appendChild(cantidad_input));
     let botonmas = document.createElement('button');
@@ -32,6 +37,7 @@ productos.forEach(element => {
         })]
         precio_input.value ='$' + elemento.total;
         cantidad_input.value = elemento.cantidad;
+        document.getElementById('total').value = 'TOTAL: $  '+ nuevocarrito.total;
 
     }
     let botonmenos = document.createElement('button');
@@ -44,8 +50,9 @@ productos.forEach(element => {
             let elemento = nuevocarrito.lista[nuevocarrito.lista.findIndex((elemento)=>{
                 return element.id === elemento.id
             })]
-            precio_input.value ='$' + elemento.total
+            precio_input.value ='$' + elemento.total;
             cantidad_input.value = elemento.cantidad;
+            document.getElementById('total').value ='TOTAL: $  ' + nuevocarrito.total;
         }else{
             alert('Producto eliminado');
             fila.remove();
@@ -68,5 +75,5 @@ document.getElementById('imprimir').addEventListener('click',()=>{
 document.getElementById('pagar_factura').addEventListener('clic',()=>{
     alert('tu pago se ha efectuado');
 })
-document.getElementById('total').textContent ='TOTAL: $' +Math.round( usuarioActivo.total*100)/100
+document.getElementById('total').value ='TOTAL: $  ' +Math.round( usuarioActivo.total*100)/100
 

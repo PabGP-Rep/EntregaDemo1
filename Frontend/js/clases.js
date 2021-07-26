@@ -83,7 +83,8 @@ export class Cliente  {
         this.caducidad = caducidad;
         this.cvv = cvv;
         this.mail = mail;
-        this.telefono = telefono;
+        this.tel = telefono;
+        this.Carrito = new Carrito(this.username)
     }
 }
 

@@ -11,6 +11,6 @@ module.exports = (app) =>{
 
   app.post('/clientes/actualizar',clienteUsuarioEnviado, actualizarCliente);
 
-  app.post('/clientes/eliminar',clienteUsuarioEnviado,checarCliente, eliminarCliente);      
+  app.post('/clientes/eliminar',clienteUsuarioEnviado,eliminarCliente);      
       
 }

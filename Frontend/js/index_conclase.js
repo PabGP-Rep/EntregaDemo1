@@ -4,16 +4,10 @@
 import { Carrito, Cliente } from "./clases.js";
 
 export async function AgregarProducto(element) {
-    let carrito = JSON.parse(window.localStorage.getItem('carritoActivo'));
+    let carrito = JSON.parse(localStorage.getItem('carritoActivo'));
     if (carrito !=null) {
         agregarAlista(carrito.lista,element)
-        let carritos = JSON.parse(window.localStorage.getItem('usuariosEnSistema'));
-        let encontrar = carritos.findIndex(element =>{
-            return element.id === carrito.findIndex;
-        })
         carrito.total+=element.price;
-        carritos[encontrar] = carrito;
-        window.localStorage.setItem('carritosRegistrados',JSON.stringify(carritos))
         window.localStorage.setItem('carritoActivo',JSON.stringify(carrito));
         console.log(carrito);
     }else{
@@ -291,31 +285,14 @@ export class Storage {
     revisarStorage() {
 
         if(JSON.parse(window.localStorage.getItem('usuarioActivo'))!==null) {
-            let carritosRegistrados =JSON.parse(window.localStorage.getItem('carritosRegistrados'));
-            let usuarioActivo = JSON.parse(window.localStorage.getItem('usuarioActivo'));
-            let encontrar = carritosRegistrados.findIndex((element) => {
-                return element.cliente === usuarioActivo.username;
-            })
-            console.log(encontrar);
-            console.log(usuarioActivo);
-            let carritoActivo = carritosRegistrados[encontrar];
-            window.localStorage.setItem('carritoActivo',JSON.stringify(carritoActivo));
-            ///console.log(JSON.parse(window.localStorage.getItem('carritoActivo')));
-        }
-
-        if (window.localStorage.getItem('usuariosEnSistema')===null) {
-            window.localStorage.setItem('usuariosEnSistema',JSON.stringify([]));
-            window.localStorage.setItem('carritosRegistrados',JSON.stringify([]));
-        }else{
-            ///console.log(JSON.parse(window.localStorage.getItem('usuariosEnSistema')));
-            ///console.log(JSON.parse(window.localStorage.getItem('carritosRegistrados')));
+            console.log(JSON.parse(window.localStorage.getItem('usuarioActivo')));
+            console.log(JSON.parse(window.localStorage.getItem('carritoActivo')))
         }
     }
 
-    borrar() {
+    static borrar() {
         window.localStorage.removeItem('usuarioActivo');
-        window.localStorage.removeItem('usuariosEnSistema');
-        window.localStorage.removeItem('carritosRegistrados');
+        localStorage.removeItem('carritoActivo');
     }
 
     static crearCliente = () =>{
@@ -336,10 +313,29 @@ export class Storage {
         cliente.cvv = document.getElementById('cvv').value;
         cliente.mail = document.getElementById('mail').value;
         cliente.tel = document.getElementById('telefono').value;
-        console.log(cliente);
         return cliente
     }
 
+    static subirNuevoCliente() {
+        let usuarioActivo = JSON.parse(window.localStorage.getItem('usuarioActivo'));
+        console.log(usuarioActivo);
+        document.getElementById('nombre1').value = usuarioActivo[0].NOMBRE1
+        document.getElementById('nombre2').value = usuarioActivo[0].NOMBRE2;
+        document.getElementById('apellido1').value = usuarioActivo[0].APELLIDO1;
+        document.getElementById('apellido2').value = usuarioActivo[0].APELLIDO2;
+        document.getElementById('username').value = usuarioActivo[0].USERNAME;
+        document.getElementById('password').value = usuarioActivo[0].PASSWORD_USUARIO;
+        document.getElementById('direccion').value = usuarioActivo[0].DIRECCION;
+        document.getElementById('envios').value = usuarioActivo[0].ENVIOS;
+        document.getElementById('country').value = usuarioActivo[0].PAIS;
+        document.getElementById('OpcionPago').value = usuarioActivo[0].FORMA_PAGO;
+        document.getElementById('propietario').value = usuarioActivo[0].PROPIETARIO_TARJETA;
+        document.getElementById('tarjeta').value = usuarioActivo[0].NUM_TARJETA;
+        document.getElementById('caducidad').value = usuarioActivo[0].CADUCIDAD;
+        document.getElementById('cvv').value = usuarioActivo[0].CVV;
+        document.getElementById('telefono').value = usuarioActivo[0].TELEFONO;
+        document.getElementById('mail').value = usuarioActivo[0].MAIL;
+    }
    
 }
 

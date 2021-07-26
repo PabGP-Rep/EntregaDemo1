@@ -41,7 +41,7 @@
     <div class="py-5 text-center">
       <img class="d-block mx-auto mb-4" src="../images/thumbs/shopping-cart-20392.png" alt="" width="72" height="57">
       <h2 id="titulo_perfil">Mi perfil</h2>
-      <p class="lead" id="saludo_cliente">¡Siempre es un gusto que nos visites!</p>
+      <p class="lead" id="saludo_cliente" style="color: black;font-size: larger;font-weight: bolder;">¡Siempre es un gusto que nos visites!</p>
     </div>
       <div class="col-md-7 col-lg-8">
         <form class="needs-validation" novalidate> 
@@ -70,7 +70,7 @@
             <div class="col-12">
               <label for="username" class="form-label">Usuario</label>
               <div class="input-group has-validation">
-                <input type="text" id="username" class="input">
+                <input type="text" id="username" class="input" disabled>
               </div>
             </div>
 
@@ -115,12 +115,12 @@
               
 
             </div>
-
-            <div class="col-md-6">
-              <label for="cc-name" class="form-label">Numero de tarjeta</label>
-              <input type="text" id="tarjeta" class="input">
+            <div class="row gy-3">
+              <div class="col-md-6">
+                <label for="cc-name" class="form-label">Numero de tarjeta</label>
+                <input type="text" id="tarjeta" class="input">
+              </div>
             </div>
-
             <div class="col-md-3">
               <label for="cc-expiration" class="form-label">Caducidad</label>
               <input type="text" id="caducidad" class="input">

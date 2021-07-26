@@ -290,7 +290,7 @@ export class Storage {
             console.log(usuario);
             //console.log(JSON.parse(localStorage.getItem('carritoActivo')));
             console.log(usuario.USERNAME);
-            document.getElementById('usuarioactivado').textContent ='Bienvenido de nuevo  ' + usuario[0].USERNAME;
+            document.getElementById('usuarioactivado').textContent ='      Bienvenido de nuevo  ' + usuario[0].NOMBRE1;
             document.getElementById('usuarioactivado').setAttribute('style','color:white')
         }
     }

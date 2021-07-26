@@ -75,5 +75,6 @@ document.getElementById('imprimir').addEventListener('click',()=>{
 document.getElementById('pagar_factura').addEventListener('clic',()=>{
     alert('tu pago se ha efectuado');
 })
-document.getElementById('total').value ='TOTAL: $  ' +Math.round( usuarioActivo.total*100)/100
+let nuevocarrito = JSON.parse(window.localStorage.getItem('carritoActivo'));
+document.getElementById('total').value ='TOTAL: $  ' +Math.round( nuevocarrito.total*100)/100
 

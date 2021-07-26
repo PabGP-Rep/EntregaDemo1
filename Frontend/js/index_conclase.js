@@ -284,14 +284,19 @@ export class Storage {
 
     revisarStorage() {
 
-        if(JSON.parse(window.localStorage.getItem('usuarioActivo'))!==null) {
-            console.log(JSON.parse(window.localStorage.getItem('usuarioActivo')));
-            console.log(JSON.parse(window.localStorage.getItem('carritoActivo')))
+        if(JSON.parse(localStorage.getItem('usuarioActivo'))!==null) {
+            //console.log(JSON.parse(localStorage.getItem('usuarioActivo')));
+            let usuario = JSON.parse(localStorage.getItem('usuarioActivo'));
+            console.log(usuario);
+            //console.log(JSON.parse(localStorage.getItem('carritoActivo')));
+            console.log(usuario.USERNAME);
+            document.getElementById('usuarioactivado').textContent ='Bienvenido de nuevo  ' + usuario[0].USERNAME;
+            document.getElementById('usuarioactivado').setAttribute('style','color:white')
         }
     }
 
     static borrar() {
-        window.localStorage.removeItem('usuarioActivo');
+        localStorage.removeItem('usuarioActivo');
         localStorage.removeItem('carritoActivo');
     }
 

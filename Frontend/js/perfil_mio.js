@@ -33,3 +33,4 @@ document.getElementById('boton-eliminar').addEventListener('click',async ()=>{
         console.log(error);
     }
 })
+

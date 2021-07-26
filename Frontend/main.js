@@ -8,4 +8,5 @@ renderizar.renderizarCategorias();
 let storage = new Storage();
 storage.inciarBotones('');
 storage.revisarStorage();
+storage.revisarStorage();
 

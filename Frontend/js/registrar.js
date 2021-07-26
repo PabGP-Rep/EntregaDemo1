@@ -19,6 +19,7 @@ document.getElementById('boton-registrar').addEventListener('click',async ()=>{
             localStorage.setItem('carritoActivo',JSON.stringify(carrito));
             console.log(nuevoCliente);
             console.log(carrito);
+            window.open('../index.html','_self')
         }
     } catch (error) {
         console.log(error);

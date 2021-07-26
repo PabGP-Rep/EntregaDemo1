@@ -37,7 +37,7 @@ productos.forEach(element => {
         })]
         precio_input.value ='$' + elemento.total;
         cantidad_input.value = elemento.cantidad;
-        document.getElementById('total').value = 'TOTAL: $  '+ nuevocarrito.total;
+        document.getElementById('total').value = 'TOTAL: $  '+ Math.round(nuevocarrito.total*100)/100
 
     }
     let botonmenos = document.createElement('button');
@@ -52,7 +52,7 @@ productos.forEach(element => {
             })]
             precio_input.value ='$' + elemento.total;
             cantidad_input.value = elemento.cantidad;
-            document.getElementById('total').value ='TOTAL: $  ' + nuevocarrito.total;
+            document.getElementById('total').value ='TOTAL: $  ' + Math.round(nuevocarrito.total*100)/100
         }else{
             alert('Producto eliminado');
             fila.remove();

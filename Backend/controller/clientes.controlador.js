@@ -6,7 +6,7 @@ const crearCliente = async (req, res) => {
   try {
     const cliente = await clientService.createClient(clientData);
     console.log("Cliente creado con exito [CONTROLLER]");
-    res.status(201).json(cliente);
+    res.status(201).json('Usuario registrado');
   } catch (error) {
     return res.status(500);
   }
@@ -19,7 +19,7 @@ const buscarCliente = async (req, res) =>{
     console.log("Perfil encontrado con exito [CONTROLLER]");
     res.status(200).json(cliente);
   } catch (error) {
-    throw new Error('Usuario no existe');
+    res.status(400).json('Usuario no existe')
   }
 }
 

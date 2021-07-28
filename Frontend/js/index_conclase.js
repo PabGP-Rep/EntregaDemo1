@@ -33,15 +33,8 @@ export async function eliminarProducto(element) {
     let carrito = JSON.parse(window.localStorage.getItem('carritoActivo'));
     if (carrito !=null) {
         quitarAlista(carrito.lista,element)
-        let carritos = JSON.parse(window.localStorage.getItem('usuariosEnSistema'));
-        let encontrar = carritos.findIndex(element =>{
-            return element.id === carrito.findIndex;
-        })
-        carrito.total-=element.price;
-        carritos[encontrar] = carrito;
-        window.localStorage.setItem('carritosRegistrados',JSON.stringify(carritos))
-        window.localStorage.setItem('carritoActivo',JSON.stringify(carrito));
-        console.log(carrito);
+        localStorage.setItem('carritoActivo',JSON.stringify(carrito));
+        //console.log(carrito);
     }else{
         alert('Debes iniciar sesion para empezar a comprar')
     }
@@ -51,12 +44,17 @@ async function quitarAlista(lista, element) {
     let encontrar = lista.findIndex(elemento =>{
         return element.id === elemento.id;
     })
+    console.log(lista[encontrar].cantidad);
     if(lista[encontrar].cantidad>1){
         lista[encontrar].cantidad-=1;
         lista[encontrar].total-=lista[encontrar].price;
     }else{
         lista.splice(encontrar,1);
+        let carrito = JSON.parse(localStorage.getItem('carritoActivo'));
+        carrito.lista = lista;
+        localStorage.setItem('carritoActivo',JSON.stringify(carrito))
     }
+
 }
 
 export class Conexiones {
@@ -289,7 +287,8 @@ export class Storage {
             let usuario = JSON.parse(localStorage.getItem('usuarioActivo'));
             console.log(usuario);
             //console.log(JSON.parse(localStorage.getItem('carritoActivo')));
-            console.log(usuario.USERNAME);
+            let carrito = JSON.parse(localStorage.getItem('carritoActivo'));
+            console.log(carrito);
             document.getElementById('usuarioactivado').textContent ='      Bienvenido de nuevo  ' + usuario[0].NOMBRE1;
             document.getElementById('usuarioactivado').setAttribute('style','color:white')
         }

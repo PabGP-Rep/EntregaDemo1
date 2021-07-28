@@ -2,6 +2,7 @@ import {estiloTarjeta,AgregarProducto,eliminarProducto} from './index_conclase.j
 
 let estilos_ = new estiloTarjeta;
 let usuarioActivo = JSON.parse(window.localStorage.getItem('carritoActivo'));
+console.log(usuarioActivo);
 //console.log(usuarioActivo);
 let productos = usuarioActivo.lista;
 
@@ -44,7 +45,7 @@ productos.forEach(element => {
     botonmenos.setAttribute('style',estilos_.boton+'width:50px')
     botonmenos.textContent = '-';
     botonmenos.onclick = ()=>{
-        if (cantidad_input.value> 1){
+        if (cantidad_input.value > 1){
             eliminarProducto(element);
             let nuevocarrito = JSON.parse(window.localStorage.getItem('carritoActivo'));
             let elemento = nuevocarrito.lista[nuevocarrito.lista.findIndex((elemento)=>{
@@ -55,6 +56,7 @@ productos.forEach(element => {
             document.getElementById('total').value ='TOTAL: $  ' + Math.round(nuevocarrito.total*100)/100
         }else{
             alert('Producto eliminado');
+            eliminarProducto(element)
             fila.remove();
         }
 

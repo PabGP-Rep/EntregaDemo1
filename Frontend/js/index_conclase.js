@@ -27,6 +27,7 @@ async function agregarAlista(lista,element) {
         lista[encontrar].cantidad+=1;
         lista[encontrar].total+=element.price;
     }
+    console.log(lista[encontrar].cantidad)
 }
 
 export async function eliminarProducto(element) {
@@ -34,6 +35,7 @@ export async function eliminarProducto(element) {
     if (carrito !=null) {
         quitarAlista(carrito.lista,element)
         localStorage.setItem('carritoActivo',JSON.stringify(carrito));
+        console.log(JSON.parse(localStorage.getItem('carritoActivo')));
         //console.log(carrito);
     }else{
         alert('Debes iniciar sesion para empezar a comprar')
@@ -44,17 +46,15 @@ async function quitarAlista(lista, element) {
     let encontrar = lista.findIndex(elemento =>{
         return element.id === elemento.id;
     })
-    console.log(lista[encontrar].cantidad);
     if(lista[encontrar].cantidad>1){
         lista[encontrar].cantidad-=1;
         lista[encontrar].total-=lista[encontrar].price;
-    }else{
+    }else if(lista[encontrar].cantidad === 1 ){
+        console.log('lista');
         lista.splice(encontrar,1);
-        let carrito = JSON.parse(localStorage.getItem('carritoActivo'));
-        carrito.lista = lista;
-        localStorage.setItem('carritoActivo',JSON.stringify(carrito))
+        console.log(lista);
     }
-
+    //console.log(lista[encontrar].cantidad);
 }
 
 export class Conexiones {

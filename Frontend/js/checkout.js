@@ -56,7 +56,9 @@ productos.forEach(element => {
             document.getElementById('total').value ='TOTAL: $  ' + Math.round(nuevocarrito.total*100)/100
         }else{
             alert('Producto eliminado');
-            eliminarProducto(element)
+            eliminarProducto(element);
+            let nuevocarrito = JSON.parse(window.localStorage.getItem('carritoActivo'));
+            document.getElementById('total').value ='TOTAL: $  ' + Math.round(nuevocarrito.total*100)/100
             fila.remove();
         }
 

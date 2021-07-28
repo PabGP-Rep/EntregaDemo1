@@ -9,7 +9,6 @@ export async function AgregarProducto(element) {
         agregarAlista(carrito.lista,element)
         carrito.total+=element.price;
         window.localStorage.setItem('carritoActivo',JSON.stringify(carrito));
-        console.log(carrito);
     }else{
         alert('Debes iniciar sesion para empezar a comprar')
     }
@@ -27,13 +26,13 @@ async function agregarAlista(lista,element) {
         lista[encontrar].cantidad+=1;
         lista[encontrar].total+=element.price;
     }
-    console.log(lista[encontrar].cantidad)
 }
 
 export async function eliminarProducto(element) {
     let carrito = JSON.parse(window.localStorage.getItem('carritoActivo'));
     if (carrito !=null) {
         quitarAlista(carrito.lista,element)
+        carrito.total = carrito.total - element.price
         localStorage.setItem('carritoActivo',JSON.stringify(carrito));
         console.log(JSON.parse(localStorage.getItem('carritoActivo')));
         //console.log(carrito);
@@ -47,12 +46,10 @@ async function quitarAlista(lista, element) {
         return element.id === elemento.id;
     })
     if(lista[encontrar].cantidad>1){
-        lista[encontrar].cantidad-=1;
         lista[encontrar].total-=lista[encontrar].price;
+        lista[encontrar].cantidad-=1;
     }else if(lista[encontrar].cantidad === 1 ){
-        console.log('lista');
         lista.splice(encontrar,1);
-        console.log(lista);
     }
     //console.log(lista[encontrar].cantidad);
 }

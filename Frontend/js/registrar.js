@@ -1,78 +1,32 @@
 import { Carrito, Cliente } from "../js/clases.js";
+import { Conexiones, CRUDCliente, Storage } from "./index_conclase.js";
 
-async function Countries() {
-    let country_form = document.getElementById('country');
-    let url = 'http://localhost:3000/paises';
-    let countriesList = await fetch(url);
-    let countriesList_json = await countriesList.json();
 
-    countriesList_json.forEach(element => {
-      let option = document.createElement('option');
-            option.textContent = element.name;
-            country_form.appendChild(option);  
-    });
-}
+Conexiones.Countries();
 
-const crearCliente = () =>{
-    let cliente = new Cliente;
-    cliente.nombre1 = document.getElementById('nombre1').value;
-    cliente.nombre2 = document.getElementById('nombre2').value;
-    cliente.apellido1 = document.getElementById('apellido1').value;
-    cliente.apellido2 = document.getElementById('apellido2').value;
-    cliente.username = document.getElementById('username').value;
-    cliente.direccion = document.getElementById('direccion').value;
-    cliente.envios = document.getElementById('envios').value;
-    cliente.pais = document.getElementById('country').value;
-    cliente.pago = document.getElementById('OpcionPago').value;
-    cliente.propietario = document.getElementById('propietario').value;
-    cliente.tarjeta = document.getElementById('tarjeta').value;
-    cliente.caducidad = document.getElementById('caducidad').value; 
-    cliente.password = document.getElementById('password').value
-    cliente.cvv = document.getElementById('cvv').value
-    return cliente
-}
-
-const checarcliente = (cliente) =>{
-    if (cliente.nombre1==="" || cliente.apellido1==="" || cliente.apellido2==="" || cliente.username ==="" || cliente.direccion==="" || cliente.envios==="" || cliente.propietario==="" || cliente.tarjeta==="" || cliente.caducidad==="" ||cliente.password===""||cliente.cvv==="") {
-        return false;
-    }else{
-        return true;
-    }
-}
-
-document.getElementById('boton_registar_actualizar3').addEventListener('click',()=>{
-    let cliente = crearCliente();
-    let usuariosRegistrados =JSON.parse( window.localStorage.getItem('usuariosEnSistema'));
-    let carritosRegistrados = JSON.parse(window.localStorage.getItem('carritosRegistrados'));
-    let encontrar = usuariosRegistrados.findIndex((element) => {
-        return element.username === cliente.username
-    })
-    if (encontrar===-1) {
-        if (checarcliente(cliente)){
-            usuariosRegistrados.push(cliente);
-            carritosRegistrados.push(new Carrito(cliente.username));
-            window.localStorage.setItem('usuariosEnSistema',JSON.stringify(usuariosRegistrados));
-            window.localStorage.setItem('carritosRegistrados',JSON.stringify(carritosRegistrados));
-            window.localStorage.setItem('usuarioActivo',JSON.stringify(cliente));
-        }else{
-            alert('No están llenos los campos')
+document.getElementById('boton-registrar').addEventListener('click',async ()=>{
+    let cliente = Storage.crearCliente();
+    console.log(cliente);
+    try {
+        let resultado = await CRUDCliente.registrar_usuario({PAPEL:'Usuario',NOMBRE1:cliente.nombre1,NOMBRE2:cliente.nombre2,APELLIDO1:cliente.apellido1,
+        APELLIDO2:cliente.apellido2,USERNAME:cliente.username,PASSWORD_USUARIO:cliente.password,DIRECCION:cliente.direccion,
+        ENVIOS:cliente.envios, PAIS: cliente.pais, FORMA_PAGO: cliente.pago, PROPIETARIO_TARJETA: cliente.propietario,CADUCIDAD:cliente.caducidad, NUM_TARJETA: cliente.tarjeta, PASSWORD_USUARIO: cliente.password, MAIL: cliente.mail, TELEFONO: cliente.tel,CVV: cliente.cvv } )
+        alert(resultado);
+        if (resultado === 'Usuario registrado'){
+            let nuevoCliente = await CRUDCliente.consultar_usuario({USERNAME: cliente.username, PASSWORD_USUARIO: cliente.password});
+            localStorage.setItem('usuarioActivo',JSON.stringify(nuevoCliente));
+            let carrito = new Carrito(cliente.username);
+            localStorage.setItem('carritoActivo',JSON.stringify(carrito));
+            console.log(nuevoCliente);
+            console.log(carrito);
+            window.open('../index.html','_self')
         }
-    }else{
-        alert('Nombre de usuario ya registrado')
+    } catch (error) {
+        console.log(error);
     }
-    
-    console.log(usuariosRegistrados);
-    console.log(carritosRegistrados);
-    console.log(JSON.parse(window.localStorage.getItem('usuarioActivo')));
-})
 
-document.getElementById('boton_registar_actualizar4').addEventListener('click', () =>{
-    if(JSON.parse(window.localStorage.getItem('usuarioActivo'))!==null){
-        window.open('../index.html','_self');
-    }else{
-        alert('No se ha registrado correctamente')
-    }
+    
+
 })
-Countries();
 
 

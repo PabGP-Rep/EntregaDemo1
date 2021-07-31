@@ -11,7 +11,7 @@ module.exports.usuario_completo = joi.object().keys({
     PAPEL: joi.string(),
     APELLIDO1: joi.string().alphanum().required(),
     APELLIDO2: joi.string().alphanum().required(),
-    USERNAME: joi.string().alphanum().required(),
+    USERNAME: joi.string().required(),
     DIRECCION: joi.string().required(),
     ENVIOS: joi.string().required(),
     PAIS: joi.string().alphanum().required(),

@@ -19,7 +19,7 @@ const buscarCliente = async (req, res) =>{
     console.log("Perfil encontrado con exito [CONTROLLER]");
     res.status(200).json(cliente);
   } catch (error) {
-    res.status(400).json('Usuario no existe')
+    res.status(400).json(error.message)
   }
 }
 

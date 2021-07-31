@@ -5,7 +5,7 @@ import { CRUDCliente } from "./index_conclase.js";
 document.getElementById('boton_entrar_login').addEventListener('click',async ()=>{
     let buscarusuario = await CRUDCliente.consultar_usuario({USERNAME: document.getElementById('UsuarioInputLogin').value, PASSWORD_USUARIO: document.getElementById('UsuarioPasswordLogin').value})
     if (typeof buscarusuario === 'string'){
-        alert('Algo salió mal, revisar usuario y contraseña')
+        alert(buscarusuario)
     }else {
         localStorage.setItem('usuarioActivo',JSON.stringify(buscarusuario));
         localStorage.setItem('carritoActivo', JSON.stringify(new Carrito(buscarusuario.USERNAME)));

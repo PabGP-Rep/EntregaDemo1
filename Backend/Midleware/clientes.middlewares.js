@@ -1,10 +1,22 @@
 const Clientedb = require("../models/clientes.modelo");
+const jois = require('../DTO/clientesdto');
+const Joi = require('joi');
 
-const clienteUsuarioEnviado = function (req,res,next) {
+/*const clienteUsuarioEnviado = function (req,res,next) {
     if (!req.body.USERNAME || !req.body.PASSWORD_USUARIO){
        return res.status(400).json('Datos invalidos')
     }
     return next();
+}*/
+
+const clienteUsuarioEnviado = function (req,res,next) {
+    try {
+        Joi.attempt({USERNAME: req.body.USERNAME,PASSWORD_USUARIO: req.body.PASSWORD_USUARIO},jois.usuario_contrasena_schema,'Falta usuario y contraseña')
+        return next()
+    } catch (error) {
+        console.log(error.message);
+        return res.status(400).json('Falta usuario y/o contraseña')
+    }
 }
 
 const checarCliente= async function (req,res,next) {
@@ -19,12 +31,22 @@ const checarCliente= async function (req,res,next) {
     return next();
 }
 
-const clienteDatosEnviados = function(req,res,next) {
+/*const clienteDatosEnviados = function(req,res,next) {
     let DATOS = req.body;
     if (!DATOS.NOMBRE1 || !DATOS.NOMBRE2 ||!DATOS.PAPEL || !DATOS.APELLIDO1 || !DATOS.APELLIDO2 || !DATOS.USERNAME || !DATOS.DIRECCION || !DATOS.ENVIOS || !DATOS.PAIS || !DATOS.FORMA_PAGO || !DATOS.PROPIETARIO_TARJETA || !DATOS.CADUCIDAD || !DATOS.NUM_TARJETA || !DATOS.PASSWORD_USUARIO || !DATOS.CVV || !DATOS.MAIL || !DATOS.TELEFONO) {
             return res.status(400).json('Falta algún dato');
         }
     return next()
+}*/
+
+const clienteDatosEnviados = function(req,res,next) {
+    try {
+        Joi.attempt(req.body,jois.usuario_completo,'Falta algun dato');
+        return next()
+    } catch (error) {
+        console.log(error.message);
+        return res.status(400).json('Falta algun dato')
+    }
 }
 
 const clienteExiste = async function(req,res,next) {

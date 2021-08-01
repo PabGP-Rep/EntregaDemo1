@@ -463,5 +463,73 @@ export class CRUDCliente {
 } 
 
 
+export class Cobros {
+
+    static async nuevoPedido(datos) {
+        let resultado =  await fetch('http://localhost:3000/pedidos/nuevo',{
+            method:'POST',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                USERNAME: datos.USERNAME,
+                ID_PEDIDO: datos.ID_PEDIDO,
+                CANTIDAD: datos.CANTIDAD,
+                ID_PRODUCTO: datos.ID_PRODUCTO,
+                SUB_TOTAL: datos.SUB_TOTAL,
+            })
+        })
+        let resultado_json = resultado.json();
+        return resultado_json;
+
+    }
+
+    static async maximoPedido() {
+        let resultado = await fetch('http://localhost:3000/pedidos/maximo',{
+            method: 'GET',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                "Content-type": "application/json"
+            }
+        });
+        let resultado_json = resultado.json();
+        return resultado_json;
+    }
+
+    static async maximaOrden() {
+        let resultado = await fetch('http://localhost:3000/ordenes/maxima',{
+            method:'GET',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                "Content-type": "application/json"
+            }
+        });
+        let resultado_json = resultado.json();
+        return resultado_json;
+    }
+
+    static async nuevaOrden(datos) {
+        let resultado = await fetch('http://localhost:3000/ordenes/nueva',{
+            method:'POST',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                USERNAME: datos.USERNAME,
+                ID_PEDIDO: datos.ID_PEDIDO,
+                ID_ORDEN: datos.ID_ORDEN,
+                STATUS: 'En camino',
+                TOTAL: datos.TOTAL
+            })
+        })
+        let resultado_json = resultado.json();
+        return resultado_json;
+    }
+
+
+}
+
 
 

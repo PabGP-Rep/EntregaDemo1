@@ -1,4 +1,4 @@
-import {estiloTarjeta,AgregarProducto,eliminarProducto} from './index_conclase.js'
+import {estiloTarjeta,AgregarProducto,eliminarProducto, CRUDCliente, Cobros} from './index_conclase.js'
 
 let estilos_ = new estiloTarjeta;
 let usuarioActivo = JSON.parse(window.localStorage.getItem('carritoActivo'));
@@ -72,13 +72,48 @@ productos.forEach(element => {
     
     document.getElementById('tabla_checkout').appendChild(fila);
 })
+let nuevocarrito = JSON.parse(window.localStorage.getItem('carritoActivo'));
+document.getElementById('total').value ='TOTAL: $  ' +Math.round( nuevocarrito.total*100)/100
+
 document.getElementById('imprimir').addEventListener('click',()=>{
     window.print();
 })
 
-document.getElementById('pagar_factura').addEventListener('clic',()=>{
-    alert('tu pago se ha efectuado');
+document.getElementById('pagar_factura').addEventListener('click',async ()=>{
+    let confirmar = window.confirm('¿Seguro de que quieres realizar esta compra?')
+    if (confirmar) {
+        try {
+            let maximopedido = await Cobros.maximoPedido();
+            let maximaOrden = await Cobros.maximaOrden();
+            let carrito = JSON.parse(localStorage.getItem('carritoActivo'));
+            let usuario = JSON.parse(localStorage.getItem('usuarioActivo'));
+            console.log(usuario);
+            carrito.lista.forEach((element)=> {
+               let pedido = {ID_PEDIDO: maximopedido+1, 
+                USERNAME: usuario[0].USERNAME, 
+                ID_PRODUCTO: parseInt(element.id.slice(3)),
+                CANTIDAD:  element.cantidad,
+                SUB_TOTAL: element.total
+                }
+                console.log(pedido);
+                Cobros.nuevoPedido(pedido);
+                
+            })
+            let orden = {
+                ID_ORDEN: maximaOrden+1,
+                ID_PEDIDO: maximopedido+1,
+                USERNAME: usuario[0].USERNAME,
+                TOTAL: carrito.total
+            }
+            Cobros.nuevaOrden(orden);
+            alert('Felicidades por tu compra!')
+            carrito.lista = [];
+            carrito.total = 0;
+            localStorage.setItem('carritoActivo',JSON.stringify(carrito))
+            window.open('../index.html','_self');
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 })
-let nuevocarrito = JSON.parse(window.localStorage.getItem('carritoActivo'));
-document.getElementById('total').value ='TOTAL: $  ' +Math.round( nuevocarrito.total*100)/100
 

@@ -1,8 +1,8 @@
 const joi = require('joi');
 
 module.exports.usuario_contrasena_schema = joi.object().keys({
-    USERNAME: joi.string().alphanum().required(),
-    PASSWORD_USUARIO: joi.string().alphanum().required()
+    USERNAME: joi.string().required(),
+    PASSWORD_USUARIO: joi.string().required()
 })
 
 module.exports.usuario_completo = joi.object().keys({

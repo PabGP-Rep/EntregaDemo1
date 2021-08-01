@@ -11,7 +11,6 @@ const Joi = require('joi');
 
 const clienteUsuarioEnviado = function (req,res,next) {
     try {
-        console.log(req.body.USERNAME,req.body.PASSWORD_USUARIO)
         Joi.attempt({USERNAME: req.body.USERNAME,PASSWORD_USUARIO: req.body.PASSWORD_USUARIO},jois.usuario_contrasena_schema,'Falta usuario y contraseña')
         return next()
     } catch (error) {

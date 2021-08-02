@@ -1,4 +1,5 @@
 const Client = require('../Services/clientes.service');
+const {generarToken} = require('../Services/jwt.service')
 const clientService = new Client();
 
 const crearCliente = async (req, res) => {
@@ -16,8 +17,12 @@ const buscarCliente = async (req, res) =>{
   const username = req.body.USERNAME;
   try {
     const cliente = await clientService.searchClient(username);
+    const user = await { "USERNAME": cliente[0].USERNAME, "ROLE": cliente[0].PAPEL };
+    console.log(user);
+    const token = await generarToken(user);
+    const respuesta = [{cliente}, {token}]
     console.log("Perfil encontrado con exito [CONTROLLER]");
-    res.status(200).json(cliente);
+    res.status(200).json(respuesta);
   } catch (error) {
     return res.status(400).json(error.message)
   }

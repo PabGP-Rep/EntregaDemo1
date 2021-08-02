@@ -181,7 +181,7 @@ export class Renderizador {
         let productos_categoria = await this.conexiones.ProductosporCategoria(categoria)
         .then((resp) =>{
             resp.forEach(element => {
-                console.log(element);
+                //console.log(element);
                 lista.push(element)
                 let imagen  = document.createElement('img');
                 imagen.setAttribute('src',element.thumbnail);
@@ -228,8 +228,21 @@ export class Renderizador {
         boton_atras.addEventListener('click',() =>{
             window.open('../index.html','_self');
         })
-
     }
+
+    revisarPermisos() {
+      if(JSON.parse(localStorage.getItem('usuarioActivo'))!==null) {
+          let usuario = JSON.parse(localStorage.getItem('usuarioActivo'));
+          console.log("Permisos");
+          console.log(usuario[0].cliente[0].PAPEL);
+          if (usuario[0].cliente[0].PAPEL != 'ADMIN') {            
+            document.getElementById('productosAdmin').className = "nav-item visually-hidden";
+            document.getElementById('categoriasAdmin').className = "nav-item visually-hidden";
+          }
+      }
+  }
+
+
 
 }
 
@@ -275,18 +288,24 @@ export class Storage {
                 window.open(direccion+'./html/perfil_mio.html','_self');
             }
         })
+
+        document.getElementById('categoriasAdmin').addEventListener('click',()=> {
+          window.open(direccion+'./html/Crud_categorias.html','_self');       
+      })
+
+      document.getElementById('productosAdmin').addEventListener('click',()=> {
+        window.open(direccion+'./html/Crud_productos.html','_self');          
+    })
     }
 
     revisarStorage() {
-
         if(JSON.parse(localStorage.getItem('usuarioActivo'))!==null) {
             //console.log(JSON.parse(localStorage.getItem('usuarioActivo')));
             let usuario = JSON.parse(localStorage.getItem('usuarioActivo'));
-            console.log(usuario);
             //console.log(JSON.parse(localStorage.getItem('carritoActivo')));
             let carrito = JSON.parse(localStorage.getItem('carritoActivo'));
             console.log(carrito);
-            document.getElementById('usuarioactivado').textContent ='      Bienvenido de nuevo  ' + usuario[0].NOMBRE1;
+            document.getElementById('usuarioactivado').textContent ='      Bienvenido de nuevo  ' + usuario[0].cliente[0].NOMBRE1;
             document.getElementById('usuarioactivado').setAttribute('style','color:white')
         }
     }
@@ -319,23 +338,23 @@ export class Storage {
 
     static subirNuevoCliente() {
         let usuarioActivo = JSON.parse(window.localStorage.getItem('usuarioActivo'));
-        console.log(usuarioActivo);
-        document.getElementById('nombre1').value = usuarioActivo[0].NOMBRE1
-        document.getElementById('nombre2').value = usuarioActivo[0].NOMBRE2;
-        document.getElementById('apellido1').value = usuarioActivo[0].APELLIDO1;
-        document.getElementById('apellido2').value = usuarioActivo[0].APELLIDO2;
-        document.getElementById('username').value = usuarioActivo[0].USERNAME;
-        document.getElementById('password').value = usuarioActivo[0].PASSWORD_USUARIO;
-        document.getElementById('direccion').value = usuarioActivo[0].DIRECCION;
-        document.getElementById('envios').value = usuarioActivo[0].ENVIOS;
-        document.getElementById('country').value = usuarioActivo[0].PAIS;
-        document.getElementById('OpcionPago').value = usuarioActivo[0].FORMA_PAGO;
-        document.getElementById('propietario').value = usuarioActivo[0].PROPIETARIO_TARJETA;
-        document.getElementById('tarjeta').value = usuarioActivo[0].NUM_TARJETA;
-        document.getElementById('caducidad').value = usuarioActivo[0].CADUCIDAD;
-        document.getElementById('cvv').value = usuarioActivo[0].CVV;
-        document.getElementById('telefono').value = usuarioActivo[0].TELEFONO;
-        document.getElementById('mail').value = usuarioActivo[0].MAIL;
+        console.log(usuarioActivo[0].cliente[0]);
+        document.getElementById('nombre1').value = usuarioActivo[0].cliente[0].NOMBRE1
+        document.getElementById('nombre2').value = usuarioActivo[0].cliente[0].NOMBRE2;
+        document.getElementById('apellido1').value = usuarioActivo[0].cliente[0].APELLIDO1;
+        document.getElementById('apellido2').value = usuarioActivo[0].cliente[0].APELLIDO2;
+        document.getElementById('username').value = usuarioActivo[0].cliente[0].USERNAME;
+        document.getElementById('password').value = usuarioActivo[0].cliente[0].PASSWORD_USUARIO;
+        document.getElementById('direccion').value = usuarioActivo[0].cliente[0].DIRECCION;
+        document.getElementById('envios').value = usuarioActivo[0].cliente[0].ENVIOS;
+        document.getElementById('country').value = usuarioActivo[0].cliente[0].PAIS;
+        document.getElementById('OpcionPago').value = usuarioActivo[0].cliente[0].FORMA_PAGO;
+        document.getElementById('propietario').value = usuarioActivo[0].cliente[0].PROPIETARIO_TARJETA;
+        document.getElementById('tarjeta').value = usuarioActivo[0].cliente[0].NUM_TARJETA;
+        document.getElementById('caducidad').value = usuarioActivo[0].cliente[0].CADUCIDAD;
+        document.getElementById('cvv').value = usuarioActivo[0].cliente[0].CVV;
+        document.getElementById('telefono').value = usuarioActivo[0].cliente[0].TELEFONO;
+        document.getElementById('mail').value = usuarioActivo[0].cliente[0].MAIL;
     }
    
 }
@@ -458,6 +477,7 @@ export class CRUDCliente {
             })
         })
         let resultado_json = resultado.json();
+        console.log(resultado_json);
         return resultado_json;
     }
 } 

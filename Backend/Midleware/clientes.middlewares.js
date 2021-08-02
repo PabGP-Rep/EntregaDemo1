@@ -1,6 +1,7 @@
 const Clientedb = require("../models/clientes.modelo");
 const jois = require('../DTO/clientesdto');
 const Joi = require('joi');
+const { descubrirToken } = require('../Services/jwt.service');
 
 /*const clienteUsuarioEnviado = function (req,res,next) {
     if (!req.body.USERNAME || !req.body.PASSWORD_USUARIO){
@@ -70,4 +71,30 @@ const puedeVerInfo = async function(req,res,next) {
     return next();
 }
 
-module.exports = {clienteUsuarioEnviado,checarCliente, clienteExiste,clienteDatosEnviados,puedeVerInfo}
+const validarToken = async (req, res, next) => {
+  try {
+    console.log("Recibi:");
+    console.log(req.headers);
+    
+    if (req.headers.authorization != undefined) {
+      const token = req.headers.authorization.split(' ')[1];
+      const verified = await descubrirToken(token);
+      if (verified.data.ROLE == 'ADMIN'){
+        console.log("token verificado:");
+        console.log(verified);
+        return next ();
+      } 
+      else{
+        return res.status(403).json('NESECITAS PERMISO DE ADMINISTRADOR')
+      }
+    }
+    else{
+      return res.status(403).json('INVALID AUTHORIZATION');
+    }
+    
+  } catch (error) {    
+    console.log(error);    
+  }
+}
+
+module.exports = {clienteUsuarioEnviado,checarCliente, clienteExiste,clienteDatosEnviados,puedeVerInfo, validarToken}

@@ -9,6 +9,8 @@ Paquetes utilizados en el desarrollo:
 - cors
 - sequelize
 - tedious
+- joi
+- jsonwebtoken
 
 Enlace a la página obtenida:
 https://angelsequeda.github.io/

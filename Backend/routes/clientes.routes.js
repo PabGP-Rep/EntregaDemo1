@@ -1,4 +1,4 @@
-const { clienteDatosEnviados, checarCliente, puedeVerInfo, clienteUsuarioEnviado, clienteExiste } = require("../Midleware/clientes.middlewares");
+const { clienteDatosEnviados, checarCliente, puedeVerInfo, clienteUsuarioEnviado, clienteExiste, validarToken } = require("../Midleware/clientes.middlewares");
 const { crearCliente, buscarCliente, listarClientes, actualizarCliente, eliminarCliente} = require('../controller/clientes.controlador');
 
 module.exports = (app) =>{
@@ -7,7 +7,9 @@ module.exports = (app) =>{
 
   app.post('/clientes/miperfil', clienteUsuarioEnviado,checarCliente,  buscarCliente);
 
-  app.post('/clientes', clienteUsuarioEnviado, checarCliente, puedeVerInfo, listarClientes);
+  //app.post('/clientes', clienteUsuarioEnviado, checarCliente, puedeVerInfo, listarClientes);
+  app.post('/clientes', clienteUsuarioEnviado, checarCliente, validarToken, listarClientes);
+
 
   app.post('/clientes/actualizar',clienteUsuarioEnviado, actualizarCliente);
 

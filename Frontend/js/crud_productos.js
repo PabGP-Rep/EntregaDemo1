@@ -1,28 +1,37 @@
 class CrudProductos{
   constructor(){}
 
-  static async consultarProductos() {
+  static async consultarProductos(token) {
     let tablaProductos = document.getElementById('contenido-tabla');
     let url = 'http://localhost:3000/productos';
-    let productList = await fetch(url);
-    let productList_json = await productList.json();
-
-    let vista = ``;
-    productList_json.forEach(element => {
-      vista += `      
-        <tr>
-          <th scope="row">${element.ID_PRODUCTO}</th>
-          <td>${element.ID_CATEGORIA}</td>
-          <td>${element.NOMBRE}</td>
-          <td>${element.PRECIO}</td> 
-          <td>${element.IMAGEN}</td>         
-        </tr>    
-      `;  
+    let productList = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token, 
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
-    tablaProductos.innerHTML = vista;
+    if (productList.status != 403) {
+      let productList_json = await productList.json();
+      let vista = ``;
+      productList_json.forEach(element => {
+        vista += `      
+          <tr>
+            <th scope="row">${element.ID_PRODUCTO}</th>
+            <td>${element.ID_CATEGORIA}</td>
+            <td>${element.NOMBRE}</td>
+            <td>${element.PRECIO}</td> 
+            <td>${element.IMAGEN}</td>         
+          </tr>    
+        `;  
+      });
+      tablaProductos.innerHTML = vista;      
+    } else {
+      alert(`Error: No posees permiso`);  
+    }    
   }
 
-  static async registrarProducto(idcategoria, nombre, precio, imagen){  
+  static async registrarProducto(idcategoria, nombre, precio, imagen, token){  
     try {
       let parametros = { idCategoria: idcategoria, nombre: nombre, precio: precio, imagen: imagen };
       let url = 'http://localhost:3000/productos';
@@ -30,20 +39,25 @@ class CrudProductos{
       let agregar = await fetch(url,{
         method:'POST',
         headers: { 
+          'Authorization': token,
           "Accept": "application/json, text/plain, */*",         
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(parametros),
       })
-      const agregar_json = await agregar.json();
-      console.log(agregar_json);
-      return agregar_json;
+      if (agregar.status != 403) {
+        const agregar_json = await agregar.json();
+       console.log(agregar_json);
+       return agregar_json;        
+      } else {
+        return false;      
+      }      
     }catch (error) {
       console.log('nuevo'+error);
     }  
   }
 
-  static async actualizarProducto(idproducto, idcategoria, nombre, precio, imagen){
+  static async actualizarProducto(idproducto, idcategoria, nombre, precio, imagen, token){
     try {
       let parametros = { id: idproducto, idCategoria: idcategoria, nombre: nombre, precio: precio, imagen: imagen };
       let url = 'http://localhost:3000/productos';
@@ -51,20 +65,25 @@ class CrudProductos{
       let agregar = await fetch(url,{
         method:'PUT',
         headers: { 
+          'Authorization': token,
           "Accept": "application/json, text/plain, */*",         
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(parametros),
       })
-      const agregar_json = await agregar.json();
-      console.log(agregar_json);
-      return agregar_json;
+      if (agregar.status != 403) {
+        const agregar_json = await agregar.json();
+        console.log(agregar_json);
+        return agregar_json;        
+      } else {
+        return false;        
+      }      
     }catch (error) {
       console.log('nuevo'+error);
     }  
   }
 
-  static async eliminarProducto(idproducto, idcategoria, nombre, precio, imagen){
+  static async eliminarProducto(idproducto, idcategoria, nombre, precio, imagen, token){
     try {
       let parametros = { id: idproducto, idCategoria: idcategoria, nombre: nombre, precio: precio, imagen: imagen };
       let url = 'http://localhost:3000/productos';
@@ -72,27 +91,34 @@ class CrudProductos{
       let agregar = await fetch(url,{
         method:'DELETE',
         headers: { 
+          'Authorization': token,
           "Accept": "application/json, text/plain, */*",         
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(parametros),
       })
-      const agregar_json = await agregar.json();
-      console.log(agregar_json);
-      return agregar_json;
+      if (agregar.status != 403) {
+        const agregar_json = await agregar.json();
+        console.log(agregar_json);
+        return agregar_json;        
+      } else {
+        return false;
+      }      
     }catch (error) {
       console.log('nuevo'+error);
     }  
   }
 }
 
+let rawtoken = JSON.parse(window.localStorage.getItem('usuarioActivo'))[1].token;
+let token = "Bearer "+ rawtoken;
 const botonConsulta = document.getElementById('boton-consultar');
 const botonRegistro = document.getElementById('boton-registrar');
 const botonActualizar = document.getElementById('boton-actualizar');
 const botonEliminar = document.getElementById('boton-eliminar');
 
 botonConsulta.addEventListener('click', () => {
-  CrudProductos.consultarProductos();
+  CrudProductos.consultarProductos(token);
 });
 
 botonRegistro.addEventListener('click', async () => {
@@ -103,11 +129,14 @@ botonRegistro.addEventListener('click', async () => {
   console.log("Registrando");
   try {
     validarNumero(campoIdCategoria);
-    await validarCategoriaID(campoIdCategoria);
+    await validarCategoriaID(campoIdCategoria, token);
     validarTxt(campoNombre);
-    validarNumeroFloat(campoPrecio);
-    CrudProductos.registrarProducto(campoIdCategoria, campoNombre, campoPrecio, campoImagen);
-    alert('Producto Registrado exitosamente');
+    validarNumeroFloat(campoPrecio);    
+    if (CrudProductos.registrarProducto(campoIdCategoria, campoNombre, campoPrecio, campoImagen, token)) {
+      alert('Producto Registrado exitosamente');      
+    } else {
+      alert(`Error: No posees permiso`);
+    }   
   } catch (error) {
     console.log(error);
     alert(`Error: ${error.message}`);  
@@ -123,13 +152,16 @@ botonActualizar.addEventListener('click', async () => {
   console.log("actualizando");
   try {
     validarNumero(campoIdProducto);
-    await validarProductoId(campoIdProducto);
+    await validarProductoId(campoIdProducto, token);
     validarNumero(campoIdCategoria);
-    await validarCategoriaID(campoIdCategoria);
+    await validarCategoriaID(campoIdCategoria, token);
     validarTxt(campoNombre);
     validarNumeroFloat(campoPrecio);
-    CrudProductos.actualizarProducto(campoIdProducto, campoIdCategoria, campoNombre, campoPrecio, campoImagen);  
-    alert('Producto Actualizado exitosamente');
+    if (CrudProductos.actualizarProducto(campoIdProducto, campoIdCategoria, campoNombre, campoPrecio, campoImagen, token)) {
+      alert('Producto Actualizado exitosamente');
+    } else {
+      alert(`Error: No posees permiso`);
+    }    
   } catch (error) {
     console.log(error);
     alert(`Error: ${error.message}`);  
@@ -148,9 +180,12 @@ botonEliminar.addEventListener('click', async () => {
     validarNumero(campoIdCategoria);
     validarTxt(campoNombre);
     validarNumeroFloat(campoPrecio);
-    await validarProducto(campoIdProducto, campoIdCategoria, campoNombre, campoPrecio, campoImagen);
-    CrudProductos.eliminarProducto(campoIdProducto, campoIdCategoria, campoNombre, campoPrecio, campoImagen);
-    alert('Producto Eliminado exitosamente');
+    await validarProducto(campoIdProducto, campoIdCategoria, campoNombre, campoPrecio, campoImagen, token);    
+    if (CrudProductos.eliminarProducto(campoIdProducto, campoIdCategoria, campoNombre, campoPrecio, campoImagen, token)) {
+      alert('Producto Eliminado exitosamente');
+    } else {
+      alert(`Error: No posees permiso`);
+    }     
   } catch (error) {
     console.log(error);
     alert(`Error: ${error.message}`);    

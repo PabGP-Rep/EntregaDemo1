@@ -87,10 +87,10 @@ document.getElementById('pagar_factura').addEventListener('click',async ()=>{
             let maximaOrden = await Cobros.maximaOrden();
             let carrito = JSON.parse(localStorage.getItem('carritoActivo'));
             let usuario = JSON.parse(localStorage.getItem('usuarioActivo'));
-            console.log(usuario);
+            
             carrito.lista.forEach((element)=> {
                let pedido = {ID_PEDIDO: maximopedido+1, 
-                USERNAME: usuario[0].USERNAME, 
+                USERNAME: usuario[0].cliente[0].USERNAME, 
                 ID_PRODUCTO: parseInt(element.id.slice(3)),
                 CANTIDAD:  element.cantidad,
                 SUB_TOTAL: element.total
@@ -102,7 +102,7 @@ document.getElementById('pagar_factura').addEventListener('click',async ()=>{
             let orden = {
                 ID_ORDEN: maximaOrden+1,
                 ID_PEDIDO: maximopedido+1,
-                USERNAME: usuario[0].USERNAME,
+                USERNAME: usuario[0].cliente[0].USERNAME,
                 TOTAL: carrito.total
             }
             Cobros.nuevaOrden(orden);

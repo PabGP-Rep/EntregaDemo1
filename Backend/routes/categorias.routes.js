@@ -1,13 +1,14 @@
 const {consultarCategorias, crearCategoria, actualizarCategoria, eliminarCategoria} = require('../controller/controller.categoria');
+const Midleware = require("../Midleware/clientes.middlewares");
 
 module.exports = (app) => {
 
-  app.post('/categ', crearCategoria);
+  app.post('/categ', Midleware.validarToken, crearCategoria);
 
-  app.get('/categ', consultarCategorias);
+  app.get('/categ', Midleware.validarToken, consultarCategorias);
  
-  app.put('/categ', actualizarCategoria);
+  app.put('/categ', Midleware.validarToken, actualizarCategoria);
 
-  app.delete('/categ', eliminarCategoria);
+  app.delete('/categ', Midleware.validarToken, eliminarCategoria);
 
 }
